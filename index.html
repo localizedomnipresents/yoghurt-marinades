@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Six mild yogurt marinades</title>
-<meta name="description" content="Six yogurt-based chicken marinades with no chilli — mild jerk, Greek lemon-oregano, shawarma spice, herb-mustard-honey, Jamaican curry and achiote pibil — with a full pantry list.">
+<title>Ten mild yogurt marinades</title>
+<meta name="description" content="Ten yogurt-based chicken marinades with no chilli — Caribbean, Mexican, Middle Eastern and Asian flavours, all no hotter than black pepper — with a full pantry list.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,50,1;1,9..144,400..600,50,1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -22,6 +22,10 @@
     --honey:#a87e17;
     --curry:#c2650f;
     --achiote:#9d3520;
+    --korean:#1f5a66;
+    --miso:#4a3f73;
+    --hoisin:#7a2d52;
+    --viet:#2f6b4f;
 
     --display:"Fraunces",Georgia,serif;
     --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -117,9 +121,12 @@
   .swatch{
     height:2.4rem;width:3.2rem;
     background:var(--c);
-    transition:width .22s ease,transform .22s ease;
+    transition:width .22s ease,transform .22s ease,background .22s ease;
   }
-  .index a:hover .swatch,.index a:focus-visible .swatch{width:4.6rem}
+  .index a:hover .swatch,.index a:focus-visible .swatch{
+    width:calc(4.2rem - 5px);
+    background:linear-gradient(to right, var(--c) 56%, color-mix(in srgb,var(--c) 25%,transparent));
+  }
   .index a:hover .idx-name,.index a:focus-visible .idx-name{color:var(--c)}
   .idx-name{
     font-family:var(--display);
@@ -146,11 +153,28 @@
     padding-top:.9rem;
     margin-bottom:1.5rem;
   }
+  .recipe-head-top{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    gap:1rem;
+    flex-wrap:wrap;
+  }
   .recipe h2{font-size:clamp(1.85rem,6vw,2.7rem);color:var(--c)}
   .heat{
     margin:.55rem 0 0;
     font-size:.92rem;color:var(--ink-2);
   }
+  .view-toggle{
+    font:inherit;font-size:.82rem;font-weight:500;
+    padding:.32rem .75rem;
+    border:1px solid var(--c);
+    background:transparent;color:var(--c);
+    border-radius:999px;cursor:pointer;
+    white-space:nowrap;flex-shrink:0;
+    transition:background .15s,color .15s;
+  }
+  .view-toggle[aria-pressed="true"]{background:var(--c);color:var(--paper)}
 
   .ing{margin:0;padding:0}
   .ing div{
@@ -171,9 +195,25 @@
     hyphens:none;
   }
   .n{margin:0;min-width:0}
+  .core{font-weight:inherit}
   .sub{
     display:block;font-size:.82rem;color:var(--ink-2);
   }
+
+  /* compact "ingredients only" view — styled like the pantry list */
+  .ing.compact{display:block;padding:.1rem 0 .2rem}
+  .ing.compact div{
+    display:block;
+    border:none;
+    border-bottom:1px solid color-mix(in srgb,var(--rule) 70%,transparent);
+    padding:.34rem 0;
+    grid-template-columns:none;
+  }
+  .ing.compact div:first-child{border-top:none}
+  .ing.compact .q{display:none}
+  .ing.compact .n{display:block;margin:0;font-size:.97rem}
+  .ing.compact .detail,.ing.compact .sub{display:none}
+  .ing.compact .core{font-weight:400;color:var(--ink)}
 
   .note{
     margin:1.4rem 0 0;
@@ -221,9 +261,29 @@
     padding:.3rem 0;
     border-bottom:1px solid color-mix(in srgb,var(--rule) 70%,transparent);
     font-size:.97rem;
-    display:flex;justify-content:space-between;gap:1rem;
+    display:flex;justify-content:space-between;align-items:center;gap:.75rem;
   }
-  .pantry li span{color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .pantry-item{
+    display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem;
+    flex:1;min-width:0;
+  }
+  .pantry-item .q,.pantry-item span{color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .stock{
+    font:inherit;font-size:.72rem;font-weight:500;
+    padding:.2rem .55rem;
+    border:1px solid var(--rule);
+    background:transparent;color:var(--ink-2);
+    border-radius:999px;cursor:pointer;
+    white-space:nowrap;flex-shrink:0;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .stock:hover{border-color:var(--ink-2)}
+  .stock[data-state="have"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+  li[data-state="have"] .pantry-name,
+  li[data-state="have"] .pantry-item .q,
+  li[data-state="have"] .pantry-item span{
+    color:var(--ink-2);text-decoration:line-through;opacity:.65;
+  }
   .avoid{grid-column:1/-1}
   .avoid h3{border-bottom-color:var(--achiote);color:var(--achiote)}
   .avoid ul{columns:2;column-gap:2rem}
@@ -246,12 +306,21 @@
   }
 
   @media print{
-    .bar,.index,.filter,footer{display:none}
+    .bar,.index,.filter,.view-toggle,.stock,footer{display:none}
     body{background:#fff;color:#000;font-size:10.5pt}
     .recipe,section{break-inside:avoid;padding-top:1.4rem}
     .recipe h2{color:#000}
     .q{color:#000}
     .note{background:#f2f2f2}
+    /* always print full quantities, even if a recipe is mid-toggle on screen */
+    .ing.compact{display:block}
+    .ing.compact div{
+      display:grid;grid-template-columns:6.5rem minmax(0,1fr);
+      gap:.2rem 1.1rem;padding:.34rem 0;border-bottom:1px solid #ddd;
+    }
+    .ing.compact .q{display:block}
+    .ing.compact .detail,.ing.compact .sub{display:inline}
+    .ing.compact .core{display:inline;padding:0;background:none;border:none;font-size:inherit}
   }
 </style>
 </head>
@@ -271,7 +340,7 @@
 <div class="wrap">
 
 <header class="hero">
-  <h1>Six mild marinades</h1>
+  <h1>Ten mild marinades</h1>
   <p class="standfirst">Yogurt-based, no chilli in any of them. Nothing here goes hotter than a grind of black pepper, so the whole table eats the same dinner.</p>
   <p class="ratio">250&nbsp;g plain yogurt to every kilo of chicken.</p>
 
@@ -300,12 +369,28 @@
       <span class="swatch" aria-hidden="true"></span>
       <span class="idx-name">Achiote pibil<span class="idx-key">Paprika, cumin, oregano, orange, lime</span></span>
     </a>
+    <a href="#korean" style="--c:var(--korean)">
+      <span class="swatch" aria-hidden="true"></span>
+      <span class="idx-name">Korean bulgogi-style<span class="idx-key">Soy, sesame oil, garlic, grated pear</span></span>
+    </a>
+    <a href="#miso" style="--c:var(--miso)">
+      <span class="swatch" aria-hidden="true"></span>
+      <span class="idx-name">Japanese miso-ginger<span class="idx-key">White miso, mirin, sesame oil, ginger</span></span>
+    </a>
+    <a href="#hoisin" style="--c:var(--hoisin)">
+      <span class="swatch" aria-hidden="true"></span>
+      <span class="idx-name">Chinese five-spice hoisin<span class="idx-key">Hoisin, five-spice, soy, ginger</span></span>
+    </a>
+    <a href="#viet" style="--c:var(--viet)">
+      <span class="swatch" aria-hidden="true"></span>
+      <span class="idx-name">Vietnamese lemongrass-shallot<span class="idx-key">Lemongrass, shallot, soy, brown sugar</span></span>
+    </a>
   </nav>
 </header>
 
 <section id="basics">
   <h2>The same five moves every time</h2>
-  <p class="lede">All six work identically, so this bit only needs reading once.</p>
+  <p class="lede">All ten work identically, so this bit only needs reading once.</p>
   <ul class="basics">
     <li><b>Mix the marinade in a bowl</b> before the chicken goes anywhere near it. Dry spices need a moment in the yogurt to stop tasting powdery.</li>
     <li><b>Thighs over breasts.</b> Cheaper, more forgiving, better flavour. Breasts work but pull them out at 12 hours or the texture goes soft.</li>
@@ -317,24 +402,24 @@
 
 <section class="recipe" id="jerk" style="--c:var(--jerk)">
   <div class="recipe-head">
-    <h2>Mild jerk</h2>
+    <div class="recipe-head-top"><h2>Mild jerk</h2><button type="button" class="view-toggle" data-target="jerk" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli. The green pepper is doing the scotch bonnet's other job — the fruity, vegetal note — without any of the heat.</p>
   </div>
   <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Ground allspice</p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Dried thyme <span class="sub">Or a tablespoon of fresh, leaves stripped</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Ground nutmeg</p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Ground cinnamon</p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Brown sugar</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Soy sauce</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Grated fresh ginger</p></div>
-    <div><span class="q" data-q="4" data-u="" data-r="whole">4</span><p class="n">Spring onions, chopped, green parts and all</p></div>
-    <div><span class="q" data-q="0.5" data-u="" data-r="half">½</span><p class="n">Green pepper, finely chopped</p></div>
-    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n">Garlic, crushed</p></div>
-    <div><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n">Juiced</p></div>
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Dried thyme</span> <span class="sub">Or a tablespoon of fresh, leaves stripped</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Ground nutmeg</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Ground cinnamon</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Brown sugar</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
+    <div><span class="q" data-q="4" data-u="" data-r="whole">4</span><p class="n"><span class="core">Spring onions</span><span class="detail">, chopped, green parts and all</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="" data-r="half">½</span><p class="n"><span class="core">Green pepper</span><span class="detail">, finely chopped</span></p></div>
+    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n"><span class="core">Lime</span><span class="detail">, juiced</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -344,65 +429,65 @@
 
 <section class="recipe" id="greek" style="--c:var(--greek)">
   <div class="recipe-head">
-    <h2>Greek lemon-oregano</h2>
+    <div class="recipe-head-top"><h2>Greek lemon-oregano</h2><button type="button" class="view-toggle" data-target="greek" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli. Half a teaspoon of black pepper is the only bite in it.</p>
   </div>
   <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
-    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n">Olive oil</p></div>
-    <div><span class="q" data-q="1" data-u="lemons" data-u1="lemon" data-r="whole">1 lemon</span><p class="n">Zest and juice, both</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Dried oregano</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Sweet paprika</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
-    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n">Garlic, crushed</p></div>
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Olive oil</span></p></div>
+    <div><span class="q" data-q="1" data-u="lemons" data-u1="lemon" data-r="whole">1 lemon</span><p class="n"><span class="core">Lemon</span><span class="detail">, zest and juice, both</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dried oregano</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Sweet paprika</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
-    <p>The easiest sell to a five-year-old of the six, and the one most likely to already be in your cupboard. Take the zest before you juice the lemon — it is most of the flavour and everyone forgets. Good in pita with cucumber and more yogurt, or on skewers with onion and pepper.</p>
+    <p>The easiest sell to a five-year-old of the ten, and the one most likely to already be in your cupboard. Take the zest before you juice the lemon — it is most of the flavour and everyone forgets. Good in pita with cucumber and more yogurt, or on skewers with onion and pepper.</p>
   </div>
 </section>
 
 <section class="recipe" id="shawarma" style="--c:var(--shawarma)">
   <div class="recipe-head">
-    <h2>Shawarma warm spice</h2>
+    <div class="recipe-head-top"><h2>Shawarma warm spice</h2><button type="button" class="view-toggle" data-target="shawarma" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli. Allspice and cinnamon are warm-aromatic rather than pungent, so nothing here registers as hot.</p>
   </div>
   <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
-    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n">Sunflower or olive oil</p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Ground allspice</p></div>
-    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n">Ground cumin</p></div>
-    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n">Ground coriander</p></div>
-    <div><span class="q" data-q="0.75" data-u="tsp" data-r="spoon">¾ tsp</span><p class="n">Ground cinnamon</p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Lemon juice</p></div>
-    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n">Garlic, crushed</p></div>
-    <div><span class="q" data-q="0.5" data-u="" data-r="half">½</span><p class="n">Onion, grated, juice and all</p></div>
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Sunflower or olive oil</span></p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
+    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Ground cumin</span></p></div>
+    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Ground coriander</span></p></div>
+    <div><span class="q" data-q="0.75" data-u="tsp" data-r="spoon">¾ tsp</span><p class="n"><span class="core">Ground cinnamon</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Lemon juice</span></p></div>
+    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="" data-r="half">½</span><p class="n"><span class="core">Onion</span><span class="detail">, grated, juice and all</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
-    <p>The most restaurant-tasting of the six. Grated onion is not optional — it tenderises alongside the yogurt and carries the spice into the meat. Slice the cooked chicken thin and pile it into flatbread with pickles and tahini.</p>
+    <p>The most restaurant-tasting of the ten. Grated onion is not optional — it tenderises alongside the yogurt and carries the spice into the meat. Slice the cooked chicken thin and pile it into flatbread with pickles and tahini.</p>
   </div>
 </section>
 
 <section class="recipe" id="honey" style="--c:var(--honey)">
   <div class="recipe-head">
-    <h2>Herb, mustard &amp; honey</h2>
+    <div class="recipe-head-top"><h2>Herb, mustard &amp; honey</h2><button type="button" class="view-toggle" data-target="honey" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">The mildest here. A quarter-teaspoon of pepper, and Dijon's sharpness cooks away to nothing.</p>
   </div>
   <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Dijon mustard</p></div>
-    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n">Lemon juice</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Honey</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Garlic powder</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Onion powder</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Dried parsley</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Dried thyme</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
-    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n">Black pepper</p></div>
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dijon mustard</span></p></div>
+    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Lemon juice</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Honey</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Garlic powder</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Onion powder</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Dried parsley</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Dried thyme</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -412,22 +497,22 @@
 
 <section class="recipe" id="curry" style="--c:var(--curry)">
   <div class="recipe-head">
-    <h2>Jamaican curry</h2>
+    <div class="recipe-head-top"><h2>Jamaican curry</h2><button type="button" class="view-toggle" data-target="curry" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">Warm, not hot — Jamaican curry is turmeric- and allspice-led rather than chilli-led. Check your curry powder's label all the same.</p>
   </div>
   <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Mild curry powder <span class="sub">Rajah Mild &amp; Aromatic, Robertsons mild, or a Cape Malay blend</span></p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Turmeric <span class="sub">Sold as borrie</span></p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Ground allspice</p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Dried thyme</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Grated fresh ginger</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Sunflower oil</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
-    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n">Garlic, crushed</p></div>
-    <div><span class="q" data-q="1" data-u="" data-r="whole">1</span><p class="n">Onion, small, grated</p></div>
-    <div><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n">Juiced</p></div>
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Mild curry powder</span> <span class="sub">Rajah Mild &amp; Aromatic, Robertsons mild, or a Cape Malay blend</span></p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Turmeric</span> <span class="sub">Sold as borrie</span></p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Dried thyme</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sunflower oil</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div><span class="q" data-q="1" data-u="" data-r="whole">1</span><p class="n"><span class="core">Onion</span><span class="detail">, small, grated</span></p></div>
+    <div><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n"><span class="core">Lime</span><span class="detail">, juiced</span></p></div>
   </div>
   <div class="note">
     <h3>Built without Jamaican curry powder</h3>
@@ -438,24 +523,24 @@
 
 <section class="recipe" id="achiote" style="--c:var(--achiote)">
   <div class="recipe-head">
-    <h2>Achiote pibil</h2>
+    <div class="recipe-head-top"><h2>Achiote pibil</h2><button type="button" class="view-toggle" data-target="achiote" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli. The deep red-orange comes from paprika and turmeric, not heat.</p>
   </div>
   <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
-    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n">Sweet paprika</p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Turmeric</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Tomato paste</p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Ground cumin</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Dried oregano</p></div>
-    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n">Ground cloves</p></div>
-    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n">Ground cinnamon</p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Sunflower oil</p></div>
-    <div><span class="q" data-q="6" data-u="cloves" data-u1="clove" data-r="whole">6 cloves</span><p class="n">Garlic, crushed</p></div>
-    <div><span class="q" data-q="1" data-u="oranges" data-u1="orange" data-r="whole">1 orange</span><p class="n">Juiced</p></div>
-    <div><span class="q" data-q="2" data-u="limes" data-u1="lime" data-r="whole">2 limes</span><p class="n">Juiced</p></div>
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Sweet paprika</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Turmeric</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Tomato paste</span></p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground cumin</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dried oregano</span></p></div>
+    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n"><span class="core">Ground cloves</span></p></div>
+    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n"><span class="core">Ground cinnamon</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sunflower oil</span></p></div>
+    <div><span class="q" data-q="6" data-u="cloves" data-u1="clove" data-r="whole">6 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div><span class="q" data-q="1" data-u="oranges" data-u1="orange" data-r="whole">1 orange</span><p class="n"><span class="core">Orange</span><span class="detail">, juiced</span></p></div>
+    <div><span class="q" data-q="2" data-u="limes" data-u1="lime" data-r="whole">2 limes</span><p class="n"><span class="core">Limes</span><span class="detail">, juiced</span></p></div>
   </div>
   <div class="note">
     <h3>Built without annatto</h3>
@@ -464,69 +549,169 @@
   </div>
 </section>
 
+<section class="recipe" id="korean" style="--c:var(--korean)">
+  <div class="recipe-head">
+    <div class="recipe-head-top"><h2>Korean bulgogi-style</h2>
+    <button type="button" class="view-toggle" data-target="korean" aria-pressed="false">Ingredients only</button></div>
+    <p class="heat">No chilli. Real bulgogi gets its red tinge and kick from gochujang or gochugaru — both left out, so this leans harder on the sweet-savoury soy side instead.</p>
+  </div>
+  <div class="ing">
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div><span class="q" data-q="3" data-u="tbsp" data-r="spoon">3 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sesame oil</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Brown sugar</span></p></div>
+    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
+    <div><span class="q" data-q="2" data-u="" data-r="whole">2</span><p class="n"><span class="core">Spring onions</span><span class="detail">, chopped</span></p></div>
+    <div><span class="q" data-q="0.25" data-u="" data-r="spoon">¼</span><p class="n"><span class="core">Pear or apple</span><span class="detail">, grated</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Toasted sesame seeds</span></p></div>
+  </div>
+  <div class="note">
+    <h3>Worth knowing</h3>
+    <p>The grated pear or apple is doing double duty — it's what gochujang would normally bring in sweetness, and its enzymes tenderise the meat the same way the yogurt does. Good on skewers, or sliced thin over rice with extra sesame seeds.</p>
+  </div>
+</section>
+
+<section class="recipe" id="miso" style="--c:var(--miso)">
+  <div class="recipe-head">
+    <div class="recipe-head-top"><h2>Japanese miso-ginger</h2>
+    <button type="button" class="view-toggle" data-target="miso" aria-pressed="false">Ingredients only</button></div>
+    <p class="heat">No chilli, and the mildest of the four Asian marinades — miso brings savoury depth without any heat at all.</p>
+  </div>
+  <div class="ing">
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">White miso</span><span class="detail"> (shiro)</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Mirin</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sesame oil</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
+    <div><span class="q" data-q="3" data-u="cloves" data-u1="clove" data-r="whole">3 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+  </div>
+  <div class="note">
+    <h3>Worth knowing</h3>
+    <p>Whisk the miso into the yogurt on its own first — it doesn't dissolve as easily as a spice powder and will clump if the other liquids go in too soon. Good simply grilled, with steamed rice and a quick cucumber salad.</p>
+  </div>
+</section>
+
+<section class="recipe" id="hoisin" style="--c:var(--hoisin)">
+  <div class="recipe-head">
+    <div class="recipe-head-top"><h2>Chinese five-spice hoisin</h2>
+    <button type="button" class="view-toggle" data-target="hoisin" aria-pressed="false">Ingredients only</button></div>
+    <p class="heat">No chilli in standard hoisin, though it's worth reading the label — five-spice itself is warm rather than hot.</p>
+  </div>
+  <div class="ing">
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Hoisin sauce</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Chinese five-spice powder</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
+    <div><span class="q" data-q="4" data-u="cloves" data-u1="clove" data-r="whole">4 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Sesame oil</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+  </div>
+  <div class="note">
+    <h3>Worth knowing</h3>
+    <p>Five-spice (star anise, cinnamon, clove, fennel, Sichuan pepper) is warm-aromatic, not pungent, so it doesn't register as heat. Most standard hoisin brands are chilli-free, but check the label regardless. Good grilled or oven-roasted, with extra hoisin brushed on in the last few minutes to glaze.</p>
+  </div>
+</section>
+
+<section class="recipe" id="viet" style="--c:var(--viet)">
+  <div class="recipe-head">
+    <div class="recipe-head-top"><h2>Vietnamese lemongrass-shallot</h2>
+    <button type="button" class="view-toggle" data-target="viet" aria-pressed="false">Ingredients only</button></div>
+    <p class="heat">No chilli, and built without fish sauce — see the substitution note below.</p>
+  </div>
+  <div class="ing">
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div><span class="q" data-q="1" data-u="stalks" data-u1="stalk" data-r="whole">1 stalk</span><p class="n"><span class="core">Lemongrass</span><span class="detail">, very finely minced</span> <span class="sub">Or 1 tbsp lemongrass paste</span></p></div>
+    <div><span class="q" data-q="2" data-u="" data-r="whole">2</span><p class="n"><span class="core">Shallots</span><span class="detail">, grated</span> <span class="sub">Or ½ small onion</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span> <span class="sub">Replaces fish sauce — see note below</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Rice vinegar</span> <span class="sub">Or a squeeze of lime</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Brown sugar</span></p></div>
+    <div><span class="q" data-q="3" data-u="cloves" data-u1="clove" data-r="whole">3 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Oil</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+  </div>
+  <div class="note">
+    <h3>Built without fish sauce</h3>
+    <p>Fish sauce brings salt and a deep savoury base; soy sauce covers the saltiness and umami, and rice vinegar or a squeeze of lime adds the tang fish sauce would normally carry. It won't taste identical — fish sauce has a distinct funk soy can't fully replace — but it's close enough here, since the yogurt and aromatics are doing most of the work anyway.</p>
+    <p>If you do have fish sauce, use 1 tablespoon of it in place of the soy sauce and rice vinegar lines above. Mince the lemongrass very fine, or it stays fibrous.</p>
+  </div>
+</section>
+
 <section id="pantry">
-  <h2>Everything the six need</h2>
-  <p class="lede">The full list buys all six. Pick a single marinade to strip it back to one shopping trip. Spices in refill bags or from a bulk bin run roughly a third of the branded-jar price.</p>
+  <h2>Everything the ten need</h2>
+  <p class="lede">The full list buys all ten. Pick a single marinade to strip it back to one shopping trip. Spices in refill bags or from a bulk bin run roughly a third of the branded-jar price.</p>
 
   <div class="filter" role="group" aria-label="Show pantry items for">
-    <button type="button" data-only="all" aria-pressed="true">All six</button>
+    <button type="button" data-only="all" aria-pressed="true">All ten</button>
     <button type="button" data-only="jerk" aria-pressed="false" style="--c:var(--jerk)">Mild jerk</button>
     <button type="button" data-only="greek" aria-pressed="false" style="--c:var(--greek)">Greek lemon-oregano</button>
     <button type="button" data-only="shawarma" aria-pressed="false" style="--c:var(--shawarma)">Shawarma</button>
     <button type="button" data-only="honey" aria-pressed="false" style="--c:var(--honey)">Herb, mustard &amp; honey</button>
     <button type="button" data-only="curry" aria-pressed="false" style="--c:var(--curry)">Jamaican curry</button>
     <button type="button" data-only="achiote" aria-pressed="false" style="--c:var(--achiote)">Achiote pibil</button>
+    <button type="button" data-only="korean" aria-pressed="false" style="--c:var(--korean)">Korean bulgogi</button>
+    <button type="button" data-only="miso" aria-pressed="false" style="--c:var(--miso)">Miso-ginger</button>
+    <button type="button" data-only="hoisin" aria-pressed="false" style="--c:var(--hoisin)">Five-spice hoisin</button>
+    <button type="button" data-only="viet" aria-pressed="false" style="--c:var(--viet)">Lemongrass-shallot</button>
   </div>
-  <p class="pantry-status" id="pantry-status" role="status">Showing all 33 items, enough to cook every marinade once.</p>
+  <p class="pantry-status" id="pantry-status" role="status">Showing all items, enough to cook every marinade once.</p>
 
   <div class="pantry">
     <div data-group>
       <h3>Dry spices</h3>
       <ul>
-        <li data-use="greek achiote">Sweet paprika</li>
-        <li data-use="shawarma achiote">Ground cumin</li>
-        <li data-use="shawarma">Ground coriander</li>
-        <li data-use="curry achiote">Turmeric (borrie)</li>
-        <li data-use="jerk shawarma curry">Ground allspice</li>
-        <li data-use="jerk shawarma achiote">Ground cinnamon</li>
-        <li data-use="jerk">Ground nutmeg</li>
-        <li data-use="achiote">Ground cloves</li>
-        <li data-use="curry">Mild curry powder</li>
-        <li data-use="honey">Garlic powder</li>
-        <li data-use="honey">Onion powder</li>
-        <li data-use="jerk greek shawarma honey curry achiote">Black pepper</li>
-        <li data-use="jerk greek shawarma honey curry achiote">Salt</li>
+        <li data-use="greek achiote" data-id="sweet-paprika"><span class="pantry-item"><span class="pantry-name">Sweet paprika</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="shawarma achiote" data-id="ground-cumin"><span class="pantry-item"><span class="pantry-name">Ground cumin</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="shawarma" data-id="ground-coriander"><span class="pantry-item"><span class="pantry-name">Ground coriander</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="curry achiote" data-id="turmeric-borrie"><span class="pantry-item"><span class="pantry-name">Turmeric (borrie)</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk shawarma curry" data-id="ground-allspice"><span class="pantry-item"><span class="pantry-name">Ground allspice</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk shawarma achiote" data-id="ground-cinnamon"><span class="pantry-item"><span class="pantry-name">Ground cinnamon</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk" data-id="ground-nutmeg"><span class="pantry-item"><span class="pantry-name">Ground nutmeg</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="achiote" data-id="ground-cloves"><span class="pantry-item"><span class="pantry-name">Ground cloves</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="curry" data-id="mild-curry-powder"><span class="pantry-item"><span class="pantry-name">Mild curry powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="honey" data-id="garlic-powder"><span class="pantry-item"><span class="pantry-name">Garlic powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="honey" data-id="onion-powder"><span class="pantry-item"><span class="pantry-name">Onion powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="hoisin" data-id="chinese-five-spice-powder"><span class="pantry-item"><span class="pantry-name">Chinese five-spice powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk greek shawarma honey curry achiote korean miso hoisin viet" data-id="black-pepper"><span class="pantry-item"><span class="pantry-name">Black pepper</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk greek shawarma honey curry achiote" data-id="salt"><span class="pantry-item"><span class="pantry-name">Salt</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
       </ul>
     </div>
 
     <div data-group>
       <h3>Dried herbs</h3>
       <ul>
-        <li data-use="greek achiote">Oregano</li>
-        <li data-use="jerk honey curry">Thyme</li>
-        <li data-use="honey">Parsley</li>
+        <li data-use="greek achiote" data-id="oregano"><span class="pantry-item"><span class="pantry-name">Oregano</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk honey curry" data-id="thyme"><span class="pantry-item"><span class="pantry-name">Thyme</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="honey" data-id="parsley"><span class="pantry-item"><span class="pantry-name">Parsley</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
       </ul>
     </div>
 
     <div data-group>
       <h3>Fresh</h3>
       <ul>
-        <li data-use="jerk greek shawarma curry achiote">Garlic <span data-all="2 bulbs" data-jerk="5 cloves" data-greek="5 cloves" data-shawarma="5 cloves" data-curry="5 cloves" data-achiote="6 cloves">2 bulbs</span></li>
-        <li data-use="jerk curry">Fresh ginger <span>1 knob</span></li>
-        <li data-use="jerk">Spring onions <span data-all="1 bunch" data-jerk="4">1 bunch</span></li>
-        <li data-use="jerk">Green pepper <span>1</span></li>
-        <li data-use="shawarma curry">Onions <span data-all="2" data-shawarma="1" data-curry="1">2</span></li>
-        <li data-use="greek shawarma honey">Lemons <span data-all="3" data-greek="1" data-shawarma="1" data-honey="1">3</span></li>
-        <li data-use="jerk curry achiote">Limes <span data-all="4" data-jerk="1" data-curry="1" data-achiote="2">4</span></li>
-        <li data-use="achiote">Orange <span>1</span></li>
+        <li data-use="jerk greek shawarma curry achiote korean miso hoisin viet" data-id="garlic"><span class="pantry-item"><span class="pantry-name">Garlic</span> <span data-all="2 bulbs" data-jerk="5 cloves" data-greek="5 cloves" data-shawarma="5 cloves" data-curry="5 cloves" data-achiote="6 cloves" data-korean="5 cloves" data-miso="3 cloves" data-hoisin="4 cloves" data-viet="3 cloves">2 bulbs</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk curry korean miso hoisin" data-id="fresh-ginger"><span class="pantry-item"><span class="pantry-name">Fresh ginger</span> <span>1 knob</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk korean" data-id="spring-onions"><span class="pantry-item"><span class="pantry-name">Spring onions</span> <span data-all="1 bunch" data-jerk="4" data-korean="2">1 bunch</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk" data-id="green-pepper"><span class="pantry-item"><span class="pantry-name">Green pepper</span> <span>1</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="shawarma curry" data-id="onions"><span class="pantry-item"><span class="pantry-name">Onions</span> <span data-all="2" data-shawarma="1" data-curry="1">2</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="greek shawarma honey" data-id="lemons"><span class="pantry-item"><span class="pantry-name">Lemons</span> <span data-all="3" data-greek="1" data-shawarma="1" data-honey="1">3</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk curry achiote" data-id="limes"><span class="pantry-item"><span class="pantry-name">Limes</span> <span data-all="4" data-jerk="1" data-curry="1" data-achiote="2">4</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="achiote" data-id="orange"><span class="pantry-item"><span class="pantry-name">Orange</span> <span>1</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="viet" data-id="lemongrass"><span class="pantry-item"><span class="pantry-name">Lemongrass</span> <span>1 stalk</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="viet" data-id="shallots"><span class="pantry-item"><span class="pantry-name">Shallots</span> <span>2, or ½ small onion</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="korean" data-id="pear-or-apple"><span class="pantry-item"><span class="pantry-name">Pear or apple</span> <span>¼</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
       </ul>
     </div>
 
     <div data-group>
       <h3>Chilled</h3>
       <ul>
-        <li data-use="jerk greek shawarma honey curry achiote">Plain full-fat yogurt <span class="q" data-q="250" data-u="g" data-r="mass">250 g</span></li>
-        <li data-use="jerk greek shawarma honey curry achiote">Chicken thighs, deboned <span class="q" data-q="1" data-u="kg" data-u1="kg" data-r="spoon">1 kg</span></li>
+        <li data-use="jerk greek shawarma honey curry achiote korean miso hoisin viet" data-id="plain-full-fat-yogurt"><span class="pantry-item"><span class="pantry-name">Plain full-fat yogurt</span> <span class="q" data-q="250" data-u="g" data-r="mass">250 g</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk greek shawarma honey curry achiote korean miso hoisin viet" data-id="chicken-thighs-deboned"><span class="pantry-item"><span class="pantry-name">Chicken thighs, deboned</span> <span class="q" data-q="1" data-u="kg" data-u1="kg" data-r="spoon">1 kg</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
       </ul>
       <p class="sub" style="margin:.55rem 0 0">Per batch. These two follow the buttons at the top of the page.</p>
     </div>
@@ -534,13 +719,25 @@
     <div data-group>
       <h3>Cupboard</h3>
       <ul>
-        <li data-use="shawarma curry achiote">Sunflower oil</li>
-        <li data-use="greek shawarma">Olive oil</li>
-        <li data-use="honey">Dijon mustard</li>
-        <li data-use="honey">Honey</li>
-        <li data-use="jerk">Soy sauce</li>
-        <li data-use="jerk">Brown sugar</li>
-        <li data-use="achiote">Tomato paste</li>
+        <li data-use="shawarma curry achiote" data-id="sunflower-oil"><span class="pantry-item"><span class="pantry-name">Sunflower oil</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="greek shawarma" data-id="olive-oil"><span class="pantry-item"><span class="pantry-name">Olive oil</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="honey" data-id="dijon-mustard"><span class="pantry-item"><span class="pantry-name">Dijon mustard</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="honey" data-id="honey"><span class="pantry-item"><span class="pantry-name">Honey</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk korean miso hoisin viet" data-id="soy-sauce"><span class="pantry-item"><span class="pantry-name">Soy sauce</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk korean viet" data-id="brown-sugar"><span class="pantry-item"><span class="pantry-name">Brown sugar</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="achiote" data-id="tomato-paste"><span class="pantry-item"><span class="pantry-name">Tomato paste</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="viet" data-id="rice-vinegar"><span class="pantry-item"><span class="pantry-name">Rice vinegar</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+      </ul>
+    </div>
+
+    <div data-group>
+      <h3>Asian condiments</h3>
+      <ul>
+        <li data-use="korean miso hoisin" data-id="sesame-oil"><span class="pantry-item"><span class="pantry-name">Sesame oil</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="miso" data-id="white-miso-shiro"><span class="pantry-item"><span class="pantry-name">White miso (shiro)</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="miso" data-id="mirin"><span class="pantry-item"><span class="pantry-name">Mirin</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="hoisin" data-id="hoisin-sauce"><span class="pantry-item"><span class="pantry-name">Hoisin sauce</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="korean" data-id="toasted-sesame-seeds"><span class="pantry-item"><span class="pantry-name">Toasted sesame seeds</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
       </ul>
     </div>
 
@@ -555,6 +752,8 @@
         <li>Harissa and berbere</li>
         <li>Achiote paste</li>
         <li>Anything naming scotch bonnet, chipotle or ancho</li>
+        <li>Gochujang and gochugaru</li>
+        <li>Sriracha, sambal and chilli oil</li>
       </ul>
       <p style="margin-top:1rem;font-size:.94rem">Read the ingredients panel even on the mild versions. Plenty of local blends list chilli or cayenne well up the list, and mild on a label does not always mean mild at your table.</p>
     </div>
@@ -620,7 +819,11 @@
     shawarma:'Shawarma warm spice',
     honey:'Herb, mustard and honey',
     curry:'Jamaican curry',
-    achiote:'Achiote pibil'
+    achiote:'Achiote pibil',
+    korean:'Korean bulgogi-style',
+    miso:'Japanese miso-ginger',
+    hoisin:'Chinese five-spice hoisin',
+    viet:'Vietnamese lemongrass-shallot'
   };
 
   var chips = Array.prototype.slice.call(document.querySelectorAll('[data-only]'));
@@ -661,6 +864,50 @@
         other.setAttribute('aria-pressed', String(other === chip));
       });
       filter(chip.getAttribute('data-only'));
+    });
+  });
+
+  filter('all');
+
+  /* ---- per-recipe "ingredients only" toggle ---- */
+  var viewToggles = Array.prototype.slice.call(document.querySelectorAll('.view-toggle'));
+  viewToggles.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var section = document.getElementById(btn.getAttribute('data-target'));
+      var ing = section && section.querySelector('.ing');
+      if(!ing) return;
+      var compact = ing.classList.toggle('compact');
+      btn.setAttribute('aria-pressed', String(compact));
+      btn.textContent = compact ? 'Show quantities' : 'Ingredients only';
+    });
+  });
+
+  /* ---- pantry stock toggle (Available / Out of stock), persisted locally ---- */
+  var STOCK_KEY = 'pantryStock:v1';
+  var stockMap = {};
+  try{ stockMap = JSON.parse(localStorage.getItem(STOCK_KEY) || '{}'); }catch(e){ stockMap = {}; }
+
+  function saveStock(){
+    try{ localStorage.setItem(STOCK_KEY, JSON.stringify(stockMap)); }catch(e){}
+  }
+
+  function setStockState(li, btn, state){
+    li.setAttribute('data-state', state);
+    btn.setAttribute('data-state', state);
+    btn.setAttribute('aria-pressed', String(state === 'have'));
+    btn.textContent = state === 'have' ? 'Available' : 'Out of stock';
+  }
+
+  var stockButtons = Array.prototype.slice.call(document.querySelectorAll('.pantry .stock'));
+  stockButtons.forEach(function(btn){
+    var li = btn.closest('li');
+    var id = li.getAttribute('data-id');
+    setStockState(li, btn, stockMap[id] === 'have' ? 'have' : 'need');
+    btn.addEventListener('click', function(){
+      var next = li.getAttribute('data-state') === 'have' ? 'need' : 'have';
+      setStockState(li, btn, next);
+      stockMap[id] = next;
+      saveStock();
     });
   });
 })();
