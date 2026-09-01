@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Six mild yogurt marinades</title>
+<meta name="description" content="Six yogurt-based chicken marinades with no chilli — mild jerk, Greek lemon-oregano, shawarma spice, herb-mustard-honey, Jamaican curry and achiote pibil — with a full pantry list.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,50,1;1,9..144,400..600,50,1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#edefe9;
+    --panel:#e4e7dd;
+    --ink:#23211b;
+    --ink-2:#5f5d52;
+    --rule:#c9cec0;
+
+    --jerk:#2f4a3a;
+    --greek:#65772a;
+    --shawarma:#7a462a;
+    --honey:#a87e17;
+    --curry:#c2650f;
+    --achiote:#9d3520;
+
+    --display:"Fraunces",Georgia,serif;
+    --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+
+    --measure:34rem;
+    --pad:clamp(1.15rem,4vw,2.5rem);
+  }
+
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  html:focus-within{scroll-behavior:smooth}
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:clamp(1rem,.97rem + .2vw,1.075rem);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:46rem;margin:0 auto;padding:0 var(--pad)}
+  p{max-width:var(--measure)}
+
+  h1,h2,h3{
+    font-family:var(--display);
+    font-variation-settings:"SOFT" 50,"WONK" 1;
+    font-weight:600;
+    line-height:1.05;
+    letter-spacing:-.012em;
+    margin:0;
+    text-wrap:balance;
+  }
+
+  a{color:inherit}
+  :focus-visible{outline:2.5px solid var(--ink);outline-offset:3px;border-radius:2px}
+
+  /* ---------- sticky utility bar ---------- */
+  .bar{
+    position:sticky;top:0;z-index:20;
+    background:color-mix(in srgb,var(--paper) 88%,transparent);
+    backdrop-filter:blur(9px);
+    border-bottom:1px solid var(--rule);
+  }
+  .bar-in{
+    max-width:46rem;margin:0 auto;padding:.5rem var(--pad);
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+  }
+  .bar-label{font-size:.82rem;color:var(--ink-2)}
+  .scale{display:flex;gap:.3rem}
+  .scale button{
+    font:inherit;font-size:.85rem;font-weight:500;
+    padding:.28rem .62rem;
+    border:1px solid var(--rule);
+    background:transparent;color:var(--ink-2);
+    border-radius:999px;cursor:pointer;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .scale button:hover{border-color:var(--ink-2)}
+  .scale button[aria-pressed="true"]{
+    background:var(--ink);color:var(--paper);border-color:var(--ink);
+  }
+
+  /* ---------- hero ---------- */
+  header.hero{padding:clamp(3rem,9vw,6rem) 0 0}
+  h1{font-size:clamp(2.5rem,9vw,4.4rem)}
+  .standfirst{
+    margin:1.1rem 0 0;
+    font-size:1.08rem;
+    color:var(--ink-2);
+  }
+  .ratio{
+    margin:1.6rem 0 0;
+    font-family:var(--display);
+    font-variation-settings:"SOFT" 50,"WONK" 1;
+    font-style:italic;
+    font-size:1.15rem;
+    color:var(--ink);
+  }
+
+  /* ---------- swatch index ---------- */
+  .index{margin:clamp(2.2rem,6vw,3.2rem) 0 0;border-top:1px solid var(--rule)}
+  .index a{
+    display:grid;
+    grid-template-columns:3.2rem 1fr;
+    align-items:center;
+    gap:1rem;
+    padding:.65rem 0;
+    border-bottom:1px solid var(--rule);
+    text-decoration:none;
+  }
+  .swatch{
+    height:2.4rem;width:3.2rem;
+    background:var(--c);
+    transition:width .22s ease,transform .22s ease;
+  }
+  .index a:hover .swatch,.index a:focus-visible .swatch{width:4.6rem}
+  .index a:hover .idx-name,.index a:focus-visible .idx-name{color:var(--c)}
+  .idx-name{
+    font-family:var(--display);
+    font-variation-settings:"SOFT" 50,"WONK" 1;
+    font-size:1.22rem;font-weight:600;line-height:1.2;
+    transition:color .15s;
+  }
+  .idx-key{display:block;font-family:var(--body);font-size:.85rem;font-weight:400;color:var(--ink-2);margin-top:.12rem}
+
+  /* ---------- generic sections ---------- */
+  section{padding:clamp(2.8rem,8vw,4.5rem) 0 0}
+  section > h2{font-size:clamp(1.6rem,4.6vw,2.1rem)}
+  .lede{margin-top:.7rem;color:var(--ink-2)}
+
+  .basics{margin:1.4rem 0 0;padding:0;list-style:none;max-width:var(--measure)}
+  .basics li{padding:.62rem 0;border-top:1px solid var(--rule)}
+  .basics li:last-child{border-bottom:1px solid var(--rule)}
+  .basics b{font-weight:600}
+
+  /* ---------- recipe ---------- */
+  .recipe{scroll-margin-top:4.2rem}
+  .recipe-head{
+    border-top:5px solid var(--c);
+    padding-top:.9rem;
+    margin-bottom:1.5rem;
+  }
+  .recipe h2{font-size:clamp(1.85rem,6vw,2.7rem);color:var(--c)}
+  .heat{
+    margin:.55rem 0 0;
+    font-size:.92rem;color:var(--ink-2);
+  }
+
+  .ing{margin:0;padding:0}
+  .ing div{
+    display:grid;
+    grid-template-columns:5.9rem 1fr;
+    gap:.2rem 1rem;
+    padding:.34rem 0;
+    border-bottom:1px solid color-mix(in srgb,var(--rule) 70%,transparent);
+  }
+  .ing div:first-child{border-top:1px solid var(--rule)}
+  .q{
+    font-variant-numeric:tabular-nums;
+    font-weight:600;
+    color:var(--c);
+    text-align:right;
+    white-space:nowrap;
+  }
+  .n{margin:0}
+  .sub{
+    display:block;font-size:.82rem;color:var(--ink-2);
+  }
+
+  .note{
+    margin:1.4rem 0 0;
+    padding:1rem 1.15rem;
+    background:var(--panel);
+    max-width:var(--measure);
+    font-size:.96rem;
+  }
+  .note h3{
+    font-size:1rem;font-weight:600;margin-bottom:.3rem;
+    font-family:var(--body);letter-spacing:0;
+    font-variation-settings:normal;
+  }
+  .note p{margin:0}
+  .note p + p{margin-top:.6rem}
+
+  /* ---------- pantry ---------- */
+  .pantry{margin:1.8rem 0 0;display:grid;gap:1.9rem}
+  @media(min-width:38rem){.pantry{grid-template-columns:1fr 1fr;gap:2rem 2.6rem}}
+  .pantry h3{
+    font-size:1.15rem;
+    padding-bottom:.4rem;
+    border-bottom:2px solid var(--ink);
+  }
+  .pantry ul{margin:.7rem 0 0;padding:0;list-style:none}
+  .pantry li{
+    padding:.3rem 0;
+    border-bottom:1px solid color-mix(in srgb,var(--rule) 70%,transparent);
+    font-size:.97rem;
+    display:flex;justify-content:space-between;gap:1rem;
+  }
+  .pantry li span{color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
+  .avoid{grid-column:1/-1}
+  .avoid h3{border-bottom-color:var(--achiote);color:var(--achiote)}
+  .avoid ul{columns:2;column-gap:2rem}
+  @media(max-width:30rem){.avoid ul{columns:1}}
+  .avoid li{display:block;break-inside:avoid}
+
+  /* ---------- footer ---------- */
+  footer{
+    margin-top:clamp(3.5rem,9vw,5.5rem);
+    border-top:1px solid var(--rule);
+    padding:1.6rem 0 3.5rem;
+    font-size:.88rem;color:var(--ink-2);
+  }
+  footer p{max-width:var(--measure)}
+  .totop{text-decoration:none;border-bottom:1px solid var(--rule)}
+
+  @media(prefers-reduced-motion:reduce){
+    html:focus-within{scroll-behavior:auto}
+    *{transition:none!important}
+  }
+
+  @media print{
+    .bar,.index,footer{display:none}
+    body{background:#fff;color:#000;font-size:10.5pt}
+    .recipe,section{break-inside:avoid;padding-top:1.4rem}
+    .recipe h2{color:#000}
+    .q{color:#000}
+    .note{background:#f2f2f2}
+  }
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <span class="bar-label">Quantities for</span>
+    <div class="scale" role="group" aria-label="Batch size">
+      <button type="button" data-scale="1" aria-pressed="true">1 kg</button>
+      <button type="button" data-scale="1.5" aria-pressed="false">1.5 kg</button>
+      <button type="button" data-scale="2" aria-pressed="false">2 kg</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="hero">
+  <h1>Six mild marinades</h1>
+  <p class="standfirst">Yogurt-based, no chilli in any of them. Nothing here goes hotter than a grind of black pepper, so the whole table eats the same dinner.</p>
+  <p class="ratio">250&nbsp;g plain yogurt to every kilo of chicken.</p>
+
+  <nav class="index" aria-label="The marinades">
+    <a href="#jerk" style="--c:var(--jerk)">
+      <span class="swatch" aria-hidden="true"></span>
+      <span class="idx-name">Mild jerk<span class="idx-key">Allspice, thyme, spring onion, lime</span></span>
+    </a>
+    <a href="#greek" style="--c:var(--greek)">
+      <span class="swatch" aria-hidden="true"></span>
+      <span class="idx-name">Greek lemon-oregano<span class="idx-key">Oregano, garlic, lemon, olive oil</span></span>
+    </a>
+    <a href="#shawarma" style="--c:var(--shawarma)">
+      <span class="swatch" aria-hidden="true"></span>
+      <span class="idx-name">Shawarma warm spice<span class="idx-key">Allspice, cumin, cinnamon, grated onion</span></span>
+    </a>
+    <a href="#honey" style="--c:var(--honey)">
+      <span class="swatch" aria-hidden="true"></span>
+      <span class="idx-name">Herb, mustard &amp; honey<span class="idx-key">Dijon, thyme, parsley, lemon</span></span>
+    </a>
+    <a href="#curry" style="--c:var(--curry)">
+      <span class="swatch" aria-hidden="true"></span>
+      <span class="idx-name">Jamaican curry<span class="idx-key">Turmeric, allspice, thyme, ginger</span></span>
+    </a>
+    <a href="#achiote" style="--c:var(--achiote)">
+      <span class="swatch" aria-hidden="true"></span>
+      <span class="idx-name">Achiote pibil<span class="idx-key">Paprika, cumin, oregano, orange, lime</span></span>
+    </a>
+  </nav>
+</header>
+
+<section id="basics">
+  <h2>The same five moves every time</h2>
+  <p class="lede">All six work identically, so this bit only needs reading once.</p>
+  <ul class="basics">
+    <li><b>Mix the marinade in a bowl</b> before the chicken goes anywhere near it. Dry spices need a moment in the yogurt to stop tasting powdery.</li>
+    <li><b>Thighs over breasts.</b> Cheaper, more forgiving, better flavour. Breasts work but pull them out at 12 hours or the texture goes soft.</li>
+    <li><b>Fridge, 4 to 24 hours.</b> Overnight is the sweet spot. Past a day the yogurt stops improving anything.</li>
+    <li><b>Scrape most of it off before cooking.</b> A thin film browns. A thick coat steams, then burns.</li>
+    <li><b>Medium heat to 74&nbsp;°C inside.</b> Yogurt and sugar catch fast, so resist a hot pan or a hot grill.</li>
+  </ul>
+</section>
+
+<section class="recipe" id="jerk" style="--c:var(--jerk)">
+  <div class="recipe-head">
+    <h2>Mild jerk</h2>
+    <p class="heat">No chilli. The green pepper is doing the scotch bonnet's other job — the fruity, vegetal note — without any of the heat.</p>
+  </div>
+  <div class="ing">
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Ground allspice</p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Dried thyme <span class="sub">Or a tablespoon of fresh, leaves stripped</span></p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Ground nutmeg</p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Ground cinnamon</p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Brown sugar</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Soy sauce</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Grated fresh ginger</p></div>
+    <div><span class="q" data-q="4" data-u="spring onions" data-u1="spring onion" data-r="whole">4 spring onions</span><p class="n">Chopped, green parts and all</p></div>
+    <div><span class="q" data-q="0.5" data-u="green pepper" data-r="half">½ green pepper</span><p class="n">Finely chopped</p></div>
+    <div><span class="q" data-q="5" data-u="cloves garlic" data-u1="clove garlic" data-r="whole">5 cloves garlic</span><p class="n">Crushed</p></div>
+    <div><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n">Juiced</p></div>
+  </div>
+  <div class="note">
+    <h3>Worth knowing</h3>
+    <p>Allspice is the actual backbone of jerk, not the chilli, which is why this still tastes like the real thing. Best on bone-in thighs, cooked slowly so the sugar caramelises rather than scorches. Serve with rice and peas, or plain rice and a wedge of lime.</p>
+  </div>
+</section>
+
+<section class="recipe" id="greek" style="--c:var(--greek)">
+  <div class="recipe-head">
+    <h2>Greek lemon-oregano</h2>
+    <p class="heat">No chilli. Half a teaspoon of black pepper is the only bite in it.</p>
+  </div>
+  <div class="ing">
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
+    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n">Olive oil</p></div>
+    <div><span class="q" data-q="1" data-u="lemons" data-u1="lemon" data-r="whole">1 lemon</span><p class="n">Zest and juice, both</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Dried oregano</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Sweet paprika</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
+    <div><span class="q" data-q="5" data-u="cloves garlic" data-u1="clove garlic" data-r="whole">5 cloves garlic</span><p class="n">Crushed</p></div>
+  </div>
+  <div class="note">
+    <h3>Worth knowing</h3>
+    <p>The easiest sell to a five-year-old of the six, and the one most likely to already be in your cupboard. Take the zest before you juice the lemon — it is most of the flavour and everyone forgets. Good in pita with cucumber and more yogurt, or on skewers with onion and pepper.</p>
+  </div>
+</section>
+
+<section class="recipe" id="shawarma" style="--c:var(--shawarma)">
+  <div class="recipe-head">
+    <h2>Shawarma warm spice</h2>
+    <p class="heat">No chilli. Allspice and cinnamon are warm-aromatic rather than pungent, so nothing here registers as hot.</p>
+  </div>
+  <div class="ing">
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
+    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n">Sunflower or olive oil</p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Ground allspice</p></div>
+    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n">Ground cumin</p></div>
+    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n">Ground coriander</p></div>
+    <div><span class="q" data-q="0.75" data-u="tsp" data-r="spoon">¾ tsp</span><p class="n">Ground cinnamon</p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Lemon juice</p></div>
+    <div><span class="q" data-q="5" data-u="cloves garlic" data-u1="clove garlic" data-r="whole">5 cloves garlic</span><p class="n">Crushed</p></div>
+    <div><span class="q" data-q="0.5" data-u="onion" data-r="half">½ onion</span><p class="n">Grated, juice and all</p></div>
+  </div>
+  <div class="note">
+    <h3>Worth knowing</h3>
+    <p>The most restaurant-tasting of the six. Grated onion is not optional — it tenderises alongside the yogurt and carries the spice into the meat. Slice the cooked chicken thin and pile it into flatbread with pickles and tahini.</p>
+  </div>
+</section>
+
+<section class="recipe" id="honey" style="--c:var(--honey)">
+  <div class="recipe-head">
+    <h2>Herb, mustard &amp; honey</h2>
+    <p class="heat">The mildest here. A quarter-teaspoon of pepper, and Dijon's sharpness cooks away to nothing.</p>
+  </div>
+  <div class="ing">
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Dijon mustard</p></div>
+    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n">Lemon juice</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Honey</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Garlic powder</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Onion powder</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Dried parsley</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Dried thyme</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
+    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n">Black pepper</p></div>
+  </div>
+  <div class="note">
+    <h3>Worth knowing</h3>
+    <p>Use this one to win over the youngest eater, then work the others in behind it. Entirely dry-cupboard apart from the lemon, so it is the one you can still make on a Thursday when nothing was bought. Oven-bakes well on a tray with potatoes.</p>
+  </div>
+</section>
+
+<section class="recipe" id="curry" style="--c:var(--curry)">
+  <div class="recipe-head">
+    <h2>Jamaican curry</h2>
+    <p class="heat">Warm, not hot — Jamaican curry is turmeric- and allspice-led rather than chilli-led. Check your curry powder's label all the same.</p>
+  </div>
+  <div class="ing">
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Mild curry powder <span class="sub">Rajah Mild &amp; Aromatic, Robertsons mild, or a Cape Malay blend</span></p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Turmeric <span class="sub">Sold as borrie</span></p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Ground allspice</p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Dried thyme</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Grated fresh ginger</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Sunflower oil</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
+    <div><span class="q" data-q="5" data-u="cloves garlic" data-u1="clove garlic" data-r="whole">5 cloves garlic</span><p class="n">Crushed</p></div>
+    <div><span class="q" data-q="1" data-u="onions" data-u1="onion" data-r="whole">1 onion</span><p class="n">Small, grated</p></div>
+    <div><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n">Juiced</p></div>
+  </div>
+  <div class="note">
+    <h3>Built without Jamaican curry powder</h3>
+    <p>Jamaican blends are hard to find locally, so this rebuilds one: a mild supermarket curry powder as the base, with extra turmeric and allspice to push it in the right direction. The tablespoon of fresh ginger covers the ground ginger a true Jamaican blend would bring, so there is none listed separately.</p>
+    <p>Skip Durban masala and anything labelled hot or extra hot — both are chilli-forward and will overshoot by a long way.</p>
+  </div>
+</section>
+
+<section class="recipe" id="achiote" style="--c:var(--achiote)">
+  <div class="recipe-head">
+    <h2>Achiote pibil</h2>
+    <p class="heat">No chilli. The deep red-orange comes from paprika and turmeric, not heat.</p>
+  </div>
+  <div class="ing">
+    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n">Plain full-fat yogurt</p></div>
+    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n">Sweet paprika</p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Turmeric</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Tomato paste</p></div>
+    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n">Ground cumin</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Dried oregano</p></div>
+    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n">Ground cloves</p></div>
+    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n">Ground cinnamon</p></div>
+    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
+    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
+    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Sunflower oil</p></div>
+    <div><span class="q" data-q="6" data-u="cloves garlic" data-u1="clove garlic" data-r="whole">6 cloves garlic</span><p class="n">Crushed</p></div>
+    <div><span class="q" data-q="1" data-u="oranges" data-u1="orange" data-r="whole">1 orange</span><p class="n">Juiced</p></div>
+    <div><span class="q" data-q="2" data-u="limes" data-u1="lime" data-r="whole">2 limes</span><p class="n">Juiced</p></div>
+  </div>
+  <div class="note">
+    <h3>Built without annatto</h3>
+    <p>Annatto barely registers as flavour — its job in a pibil marinade is that red-orange stain plus a faint earthiness. Sweet paprika, a little turmeric and a teaspoon of tomato paste do the same work with things you already own.</p>
+    <p>If you do track down the real thing at a spice merchant, ask for annatto seeds or achiote and use two teaspoons ground in place of those three lines. Avoid achiote pastes, which usually have chilli blended in.</p>
+  </div>
+</section>
+
+<section id="pantry">
+  <h2>Everything the six need</h2>
+  <p class="lede">Quantities are for the fresh items only, sized to cook all six once over a couple of weeks for four people. Spices in refill bags or from a bulk bin run roughly a third of the branded-jar price.</p>
+
+  <div class="pantry">
+    <div>
+      <h3>Dry spices</h3>
+      <ul>
+        <li>Sweet paprika</li>
+        <li>Ground cumin</li>
+        <li>Ground coriander</li>
+        <li>Turmeric (borrie)</li>
+        <li>Ground allspice</li>
+        <li>Ground cinnamon</li>
+        <li>Ground nutmeg</li>
+        <li>Ground cloves</li>
+        <li>Mild curry powder</li>
+        <li>Garlic powder</li>
+        <li>Onion powder</li>
+        <li>Black pepper</li>
+        <li>Salt</li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Dried herbs</h3>
+      <ul>
+        <li>Oregano</li>
+        <li>Thyme</li>
+        <li>Parsley</li>
+      </ul>
+      <h3 style="margin-top:1.6rem">Chilled</h3>
+      <ul>
+        <li>Plain full-fat yogurt <span>1.5 kg</span></li>
+        <li>Chicken thighs, deboned <span>1.5 kg</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Fresh</h3>
+      <ul>
+        <li>Garlic <span>2 bulbs</span></li>
+        <li>Fresh ginger <span>1 knob</span></li>
+        <li>Spring onions <span>1 bunch</span></li>
+        <li>Green pepper <span>1</span></li>
+        <li>Onions <span>2</span></li>
+        <li>Lemons <span>3</span></li>
+        <li>Limes <span>4</span></li>
+        <li>Orange <span>1</span></li>
+      </ul>
+    </div>
+
+    <div>
+      <h3>Cupboard</h3>
+      <ul>
+        <li>Sunflower oil</li>
+        <li>Olive oil</li>
+        <li>Dijon mustard</li>
+        <li>Honey</li>
+        <li>Soy sauce</li>
+        <li>Brown sugar</li>
+        <li>Tomato paste</li>
+      </ul>
+    </div>
+
+    <div class="avoid">
+      <h3>Leave on the shelf</h3>
+      <ul>
+        <li>Hot or extra-hot curry powder</li>
+        <li>Durban masala</li>
+        <li>Hot or hot-smoked paprika</li>
+        <li>Chilli powder and cayenne</li>
+        <li>Ready-made jerk paste</li>
+        <li>Harissa and berbere</li>
+        <li>Achiote paste</li>
+        <li>Anything naming scotch bonnet, chipotle or ancho</li>
+      </ul>
+      <p style="margin-top:1rem;font-size:.94rem">Read the ingredients panel even on the mild versions. Plenty of local blends list chilli or cayenne well up the list, and mild on a label does not always mean mild at your table.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>A family kitchen reference. Amounts assume 250&nbsp;g yogurt per kilo of chicken; the buttons at the top rescale every list on the page at once.</p>
+  <p style="margin-top:1rem"><a class="totop" href="#">Back to the top</a></p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var FRACTIONS = {0:'', 0.25:'\u00bc', 0.5:'\u00bd', 0.75:'\u00be'};
+
+  function render(value, rule){
+    if(rule === 'mass'){
+      return String(Math.round(value / 5) * 5);
+    }
+    var step = (rule === 'whole') ? 1 : (rule === 'half' ? 0.5 : 0.25);
+    var rounded = Math.round(value / step) * step;
+    if(rounded < step) rounded = step;
+    var whole = Math.floor(rounded + 1e-9);
+    var frac = Math.round((rounded - whole) * 100) / 100;
+    var glyph = FRACTIONS[frac] || '';
+    if(whole === 0) return glyph || '0';
+    return whole + glyph;
+  }
+
+  var cells = Array.prototype.slice.call(document.querySelectorAll('.q'));
+  var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-scale]'));
+
+  function apply(scale){
+    cells.forEach(function(cell){
+      var base = parseFloat(cell.getAttribute('data-q'));
+      if(isNaN(base)) return;
+      var rule = cell.getAttribute('data-r') || 'spoon';
+      var unit = cell.getAttribute('data-u') || '';
+      var singular = cell.getAttribute('data-u1');
+      var scaled = base * scale;
+      var text = render(scaled, rule);
+      var numeric = parseFloat(text) || (text.indexOf('\u00bd') === 0 ? 0.5 : 1);
+      var label = (singular && numeric <= 1) ? singular : unit;
+      cell.textContent = label ? text + ' ' + label : text;
+    });
+  }
+
+  buttons.forEach(function(button){
+    button.addEventListener('click', function(){
+      buttons.forEach(function(other){
+        other.setAttribute('aria-pressed', String(other === button));
+      });
+      apply(parseFloat(button.getAttribute('data-scale')));
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
