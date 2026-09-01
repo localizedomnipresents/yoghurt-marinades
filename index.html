@@ -200,14 +200,39 @@
     display:block;font-size:.82rem;color:var(--ink-2);
   }
 
-  /* compact "ingredients only" view — styled like the pantry list */
-  .ing.compact{display:block;padding:.1rem 0 .2rem}
+  /* compact "ingredients only" view — grouped by category, styled like the pantry list */
+  .ing.compact{display:flex;flex-direction:column;padding:.1rem 0 .2rem}
+  .cat-head{display:none}
+  .ing.compact .cat-head{
+    display:block;
+    font-size:.92rem;font-weight:700;letter-spacing:.03em;
+    text-transform:uppercase;color:var(--ink-2);
+    padding:.85rem 0 .3rem;
+  }
+  .ing.compact .cat-head.cat-empty{display:none}
+  .ing.compact [data-cat-head="base"]{order:1;padding-top:.1rem}
+  .ing.compact [data-cat-head="spice"]{order:11}
+  .ing.compact [data-cat-head="wet"]{order:21}
+  .ing.compact [data-cat-head="fresh"]{order:31}
+  .ing.compact div[data-cat="base"]{order:2}
+  .ing.compact div[data-cat="spice"]{order:12}
+  .ing.compact div[data-cat="wet"]{order:22}
+  .ing.compact div[data-cat="fresh"]{order:32}
   .ing.compact div{
     display:block;
     border:none;
     border-bottom:1px solid color-mix(in srgb,var(--rule) 70%,transparent);
-    padding:.34rem 0;
+    padding:.34rem 0 .34rem 1.1rem;
     grid-template-columns:none;
+    position:relative;
+  }
+  .ing.compact div::before{
+    content:"";
+    position:absolute;
+    left:0;top:.78rem;
+    width:.34rem;height:.34rem;
+    border-radius:50%;
+    background:var(--c);
   }
   .ing.compact div:first-child{border-top:none}
   .ing.compact .q{display:none}
@@ -314,10 +339,12 @@
     .note{background:#f2f2f2}
     /* always print full quantities, even if a recipe is mid-toggle on screen */
     .ing.compact{display:block}
+    .cat-head{display:none}
     .ing.compact div{
       display:grid;grid-template-columns:6.5rem minmax(0,1fr);
       gap:.2rem 1.1rem;padding:.34rem 0;border-bottom:1px solid #ddd;
     }
+    .ing.compact div::before{display:none}
     .ing.compact .q{display:block}
     .ing.compact .detail,.ing.compact .sub{display:inline}
     .ing.compact .core{display:inline;padding:0;background:none;border:none;font-size:inherit}
@@ -405,21 +432,21 @@
     <div class="recipe-head-top"><h2>Mild jerk</h2><button type="button" class="view-toggle" data-target="jerk" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli. The green pepper is doing the scotch bonnet's other job — the fruity, vegetal note — without any of the heat.</p>
   </div>
-  <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Dried thyme</span> <span class="sub">Or a tablespoon of fresh, leaves stripped</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Ground nutmeg</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Ground cinnamon</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Brown sugar</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
-    <div><span class="q" data-q="4" data-u="" data-r="whole">4</span><p class="n"><span class="core">Spring onions</span><span class="detail">, chopped, green parts and all</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="" data-r="half">½</span><p class="n"><span class="core">Green pepper</span><span class="detail">, finely chopped</span></p></div>
-    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
-    <div><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n"><span class="core">Lime</span><span class="detail">, juiced</span></p></div>
+  <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Dried thyme</span> <span class="sub">Or a tablespoon of fresh, leaves stripped</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Ground nutmeg</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Ground cinnamon</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Brown sugar</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="4" data-u="" data-r="whole">4</span><p class="n"><span class="core">Spring onions</span><span class="detail">, chopped, green parts and all</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="0.5" data-u="" data-r="half">½</span><p class="n"><span class="core">Green pepper</span><span class="detail">, finely chopped</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n"><span class="core">Lime</span><span class="detail">, juiced</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -432,15 +459,15 @@
     <div class="recipe-head-top"><h2>Greek lemon-oregano</h2><button type="button" class="view-toggle" data-target="greek" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli. Half a teaspoon of black pepper is the only bite in it.</p>
   </div>
-  <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
-    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Olive oil</span></p></div>
-    <div><span class="q" data-q="1" data-u="lemons" data-u1="lemon" data-r="whole">1 lemon</span><p class="n"><span class="core">Lemon</span><span class="detail">, zest and juice, both</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dried oregano</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Sweet paprika</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
-    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+  <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Olive oil</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="lemons" data-u1="lemon" data-r="whole">1 lemon</span><p class="n"><span class="core">Lemon</span><span class="detail">, zest and juice, both</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dried oregano</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Sweet paprika</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -453,18 +480,18 @@
     <div class="recipe-head-top"><h2>Shawarma warm spice</h2><button type="button" class="view-toggle" data-target="shawarma" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli. Allspice and cinnamon are warm-aromatic rather than pungent, so nothing here registers as hot.</p>
   </div>
-  <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
-    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Sunflower or olive oil</span></p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
-    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Ground cumin</span></p></div>
-    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Ground coriander</span></p></div>
-    <div><span class="q" data-q="0.75" data-u="tsp" data-r="spoon">¾ tsp</span><p class="n"><span class="core">Ground cinnamon</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Lemon juice</span></p></div>
-    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="" data-r="half">½</span><p class="n"><span class="core">Onion</span><span class="detail">, grated, juice and all</span></p></div>
+  <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Sunflower or olive oil</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Ground cumin</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Ground coriander</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.75" data-u="tsp" data-r="spoon">¾ tsp</span><p class="n"><span class="core">Ground cinnamon</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Lemon juice</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="0.5" data-u="" data-r="half">½</span><p class="n"><span class="core">Onion</span><span class="detail">, grated, juice and all</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -477,17 +504,17 @@
     <div class="recipe-head-top"><h2>Herb, mustard &amp; honey</h2><button type="button" class="view-toggle" data-target="honey" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">The mildest here. A quarter-teaspoon of pepper, and Dijon's sharpness cooks away to nothing.</p>
   </div>
-  <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dijon mustard</span></p></div>
-    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Lemon juice</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Honey</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Garlic powder</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Onion powder</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Dried parsley</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Dried thyme</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
-    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+  <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dijon mustard</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Lemon juice</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Honey</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Garlic powder</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Onion powder</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Dried parsley</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Dried thyme</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -500,19 +527,19 @@
     <div class="recipe-head-top"><h2>Jamaican curry</h2><button type="button" class="view-toggle" data-target="curry" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">Warm, not hot — Jamaican curry is turmeric- and allspice-led rather than chilli-led. Check your curry powder's label all the same.</p>
   </div>
-  <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Mild curry powder</span> <span class="sub">Rajah Mild &amp; Aromatic, Robertsons mild, or a Cape Malay blend</span></p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Turmeric</span> <span class="sub">Sold as borrie</span></p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Dried thyme</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sunflower oil</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
-    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
-    <div><span class="q" data-q="1" data-u="" data-r="whole">1</span><p class="n"><span class="core">Onion</span><span class="detail">, small, grated</span></p></div>
-    <div><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n"><span class="core">Lime</span><span class="detail">, juiced</span></p></div>
+  <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Mild curry powder</span> <span class="sub">Rajah Mild &amp; Aromatic, Robertsons mild, or a Cape Malay blend</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Turmeric</span> <span class="sub">Sold as borrie</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Dried thyme</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sunflower oil</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="" data-r="whole">1</span><p class="n"><span class="core">Onion</span><span class="detail">, small, grated</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n"><span class="core">Lime</span><span class="detail">, juiced</span></p></div>
   </div>
   <div class="note">
     <h3>Built without Jamaican curry powder</h3>
@@ -526,21 +553,21 @@
     <div class="recipe-head-top"><h2>Achiote pibil</h2><button type="button" class="view-toggle" data-target="achiote" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli. The deep red-orange comes from paprika and turmeric, not heat.</p>
   </div>
-  <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
-    <div><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Sweet paprika</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Turmeric</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Tomato paste</span></p></div>
-    <div><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground cumin</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dried oregano</span></p></div>
-    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n"><span class="core">Ground cloves</span></p></div>
-    <div><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n"><span class="core">Ground cinnamon</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sunflower oil</span></p></div>
-    <div><span class="q" data-q="6" data-u="cloves" data-u1="clove" data-r="whole">6 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
-    <div><span class="q" data-q="1" data-u="oranges" data-u1="orange" data-r="whole">1 orange</span><p class="n"><span class="core">Orange</span><span class="detail">, juiced</span></p></div>
-    <div><span class="q" data-q="2" data-u="limes" data-u1="lime" data-r="whole">2 limes</span><p class="n"><span class="core">Limes</span><span class="detail">, juiced</span></p></div>
+  <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Sweet paprika</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Turmeric</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Tomato paste</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground cumin</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dried oregano</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n"><span class="core">Ground cloves</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.25" data-u="tsp" data-r="spoon">¼ tsp</span><p class="n"><span class="core">Ground cinnamon</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Salt</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sunflower oil</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="6" data-u="cloves" data-u1="clove" data-r="whole">6 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="oranges" data-u1="orange" data-r="whole">1 orange</span><p class="n"><span class="core">Orange</span><span class="detail">, juiced</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="2" data-u="limes" data-u1="lime" data-r="whole">2 limes</span><p class="n"><span class="core">Limes</span><span class="detail">, juiced</span></p></div>
   </div>
   <div class="note">
     <h3>Built without annatto</h3>
@@ -555,17 +582,17 @@
     <button type="button" class="view-toggle" data-target="korean" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli. Real bulgogi gets its red tinge and kick from gochujang or gochugaru — both left out, so this leans harder on the sweet-savoury soy side instead.</p>
   </div>
-  <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
-    <div><span class="q" data-q="3" data-u="tbsp" data-r="spoon">3 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sesame oil</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Brown sugar</span></p></div>
-    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
-    <div><span class="q" data-q="2" data-u="" data-r="whole">2</span><p class="n"><span class="core">Spring onions</span><span class="detail">, chopped</span></p></div>
-    <div><span class="q" data-q="0.25" data-u="" data-r="spoon">¼</span><p class="n"><span class="core">Pear or apple</span><span class="detail">, grated</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Toasted sesame seeds</span></p></div>
+  <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="3" data-u="tbsp" data-r="spoon">3 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sesame oil</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Brown sugar</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="2" data-u="" data-r="whole">2</span><p class="n"><span class="core">Spring onions</span><span class="detail">, chopped</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="0.25" data-u="" data-r="spoon">¼</span><p class="n"><span class="core">Pear or apple</span><span class="detail">, grated</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Toasted sesame seeds</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -579,15 +606,15 @@
     <button type="button" class="view-toggle" data-target="miso" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli, and the mildest of the four Asian marinades — miso brings savoury depth without any heat at all.</p>
   </div>
-  <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
-    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">White miso</span><span class="detail"> (shiro)</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Mirin</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sesame oil</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
-    <div><span class="q" data-q="3" data-u="cloves" data-u1="clove" data-r="whole">3 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+  <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">White miso</span><span class="detail"> (shiro)</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Mirin</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sesame oil</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="3" data-u="cloves" data-u1="clove" data-r="whole">3 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -601,15 +628,15 @@
     <button type="button" class="view-toggle" data-target="hoisin" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli in standard hoisin, though it's worth reading the label — five-spice itself is warm rather than hot.</p>
   </div>
-  <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
-    <div><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Hoisin sauce</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Chinese five-spice powder</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
-    <div><span class="q" data-q="4" data-u="cloves" data-u1="clove" data-r="whole">4 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
-    <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Sesame oil</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+  <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Hoisin sauce</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Chinese five-spice powder</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Grated fresh ginger</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="4" data-u="cloves" data-u1="clove" data-r="whole">4 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Sesame oil</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -623,16 +650,16 @@
     <button type="button" class="view-toggle" data-target="viet" aria-pressed="false">Ingredients only</button></div>
     <p class="heat">No chilli, and built without fish sauce — see the substitution note below.</p>
   </div>
-  <div class="ing">
-    <div><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
-    <div><span class="q" data-q="1" data-u="stalks" data-u1="stalk" data-r="whole">1 stalk</span><p class="n"><span class="core">Lemongrass</span><span class="detail">, very finely minced</span> <span class="sub">Or 1 tbsp lemongrass paste</span></p></div>
-    <div><span class="q" data-q="2" data-u="" data-r="whole">2</span><p class="n"><span class="core">Shallots</span><span class="detail">, grated</span> <span class="sub">Or ½ small onion</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span> <span class="sub">Replaces fish sauce — see note below</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Rice vinegar</span> <span class="sub">Or a squeeze of lime</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Brown sugar</span></p></div>
-    <div><span class="q" data-q="3" data-u="cloves" data-u1="clove" data-r="whole">3 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
-    <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Oil</span></p></div>
-    <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
+  <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yogurt</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="1" data-u="stalks" data-u1="stalk" data-r="whole">1 stalk</span><p class="n"><span class="core">Lemongrass</span><span class="detail">, very finely minced</span> <span class="sub">Or 1 tbsp lemongrass paste</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="2" data-u="" data-r="whole">2</span><p class="n"><span class="core">Shallots</span><span class="detail">, grated</span> <span class="sub">Or ½ small onion</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span> <span class="sub">Replaces fish sauce — see note below</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Rice vinegar</span> <span class="sub">Or a squeeze of lime</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Brown sugar</span></p></div>
+    <div data-cat="fresh"><span class="q" data-q="3" data-u="cloves" data-u1="clove" data-r="whole">3 cloves</span><p class="n"><span class="core">Garlic</span><span class="detail">, crushed</span></p></div>
+    <div data-cat="wet"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Oil</span></p></div>
+    <div data-cat="spice"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Black pepper</span></p></div>
   </div>
   <div class="note">
     <h3>Built without fish sauce</h3>
@@ -870,6 +897,17 @@
   filter('all');
 
   /* ---- per-recipe "ingredients only" toggle ---- */
+  var recipeIngs = Array.prototype.slice.call(document.querySelectorAll('.recipe .ing'));
+  recipeIngs.forEach(function(ing){
+    var heads = Array.prototype.slice.call(ing.querySelectorAll('.cat-head'));
+    heads.forEach(function(head){
+      var cat = head.getAttribute('data-cat-head');
+      if(!ing.querySelector('[data-cat="' + cat + '"]')){
+        head.classList.add('cat-empty');
+      }
+    });
+  });
+
   var viewToggles = Array.prototype.slice.call(document.querySelectorAll('.view-toggle'));
   viewToggles.forEach(function(btn){
     btn.addEventListener('click', function(){
