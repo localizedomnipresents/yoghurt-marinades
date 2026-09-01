@@ -22,50 +22,50 @@
 <div class="wrap">
 
 <header class="hero">
-  <h1>Ten mild marinades</h1>
+  <h1>Yoghurt-based Marinades</h1>
   <p class="standfirst">Yoghurt-based, no chilli in any of them. Nothing here goes hotter than a grind of black pepper, so the whole table eats the same dinner.</p>
   <p class="ratio">250&nbsp;g plain yoghurt to every kilo of chicken.</p>
 
   <nav class="index" aria-label="The marinades">
     <a href="#jerk" style="--c:var(--jerk)">
       <span class="swatch" aria-hidden="true"></span>
-      <span class="idx-name">Mild jerk<span class="idx-key">Allspice, thyme, spring onion, lime</span></span>
+      <span class="idx-name">Mild jerk<span class="avail-pct" data-recipe="jerk" hidden></span><span class="idx-key">Allspice, thyme, spring onion, lime</span></span>
     </a>
     <a href="#greek" style="--c:var(--greek)">
       <span class="swatch" aria-hidden="true"></span>
-      <span class="idx-name">Greek lemon-oregano<span class="idx-key">Oregano, garlic, lemon, olive oil</span></span>
+      <span class="idx-name">Greek lemon-oregano<span class="avail-pct" data-recipe="greek" hidden></span><span class="idx-key">Oregano, garlic, lemon, olive oil</span></span>
     </a>
     <a href="#shawarma" style="--c:var(--shawarma)">
       <span class="swatch" aria-hidden="true"></span>
-      <span class="idx-name">Shawarma warm spice<span class="idx-key">Allspice, cumin, cinnamon, grated onion</span></span>
+      <span class="idx-name">Shawarma warm spice<span class="avail-pct" data-recipe="shawarma" hidden></span><span class="idx-key">Allspice, cumin, cinnamon, grated onion</span></span>
     </a>
     <a href="#honey" style="--c:var(--honey)">
       <span class="swatch" aria-hidden="true"></span>
-      <span class="idx-name">Herb, mustard &amp; honey<span class="idx-key">Dijon, thyme, parsley, lemon</span></span>
+      <span class="idx-name">Herb, mustard &amp; honey<span class="avail-pct" data-recipe="honey" hidden></span><span class="idx-key">Dijon, thyme, parsley, lemon</span></span>
     </a>
     <a href="#curry" style="--c:var(--curry)">
       <span class="swatch" aria-hidden="true"></span>
-      <span class="idx-name">Jamaican curry<span class="idx-key">Turmeric, allspice, thyme, ginger</span></span>
+      <span class="idx-name">Jamaican curry<span class="avail-pct" data-recipe="curry" hidden></span><span class="idx-key">Turmeric, allspice, thyme, ginger</span></span>
     </a>
     <a href="#achiote" style="--c:var(--achiote)">
       <span class="swatch" aria-hidden="true"></span>
-      <span class="idx-name">Achiote pibil<span class="idx-key">Paprika, cumin, oregano, orange, lime</span></span>
+      <span class="idx-name">Achiote pibil<span class="avail-pct" data-recipe="achiote" hidden></span><span class="idx-key">Paprika, cumin, oregano, orange, lime</span></span>
     </a>
     <a href="#korean" style="--c:var(--korean)">
       <span class="swatch" aria-hidden="true"></span>
-      <span class="idx-name">Korean bulgogi-style<span class="idx-key">Soy, sesame oil, garlic, grated pear</span></span>
+      <span class="idx-name">Korean bulgogi-style<span class="avail-pct" data-recipe="korean" hidden></span><span class="idx-key">Soy, sesame oil, garlic, grated pear</span></span>
     </a>
     <a href="#miso" style="--c:var(--miso)">
       <span class="swatch" aria-hidden="true"></span>
-      <span class="idx-name">Japanese miso-ginger<span class="idx-key">White miso, mirin, sesame oil, ginger</span></span>
+      <span class="idx-name">Japanese miso-ginger<span class="avail-pct" data-recipe="miso" hidden></span><span class="idx-key">White miso, mirin, sesame oil, ginger</span></span>
     </a>
     <a href="#hoisin" style="--c:var(--hoisin)">
       <span class="swatch" aria-hidden="true"></span>
-      <span class="idx-name">Chinese five-spice hoisin<span class="idx-key">Hoisin, five-spice, soy, ginger</span></span>
+      <span class="idx-name">Chinese five-spice hoisin<span class="avail-pct" data-recipe="hoisin" hidden></span><span class="idx-key">Hoisin, five-spice, soy, ginger</span></span>
     </a>
     <a href="#viet" style="--c:var(--viet)">
       <span class="swatch" aria-hidden="true"></span>
-      <span class="idx-name">Vietnamese lemongrass-shallot<span class="idx-key">Lemongrass, shallot, soy, brown sugar</span></span>
+      <span class="idx-name">Vietnamese lemongrass-shallot<span class="avail-pct" data-recipe="viet" hidden></span><span class="idx-key">Lemongrass, shallot, soy, brown sugar</span></span>
     </a>
   </nav>
 </header>
@@ -369,6 +369,26 @@
     var ids = row.getAttribute('data-pantry-id').split(' ');
     var have = ids.some(function(id){ return stockMap[id] === 'have'; });
     row.classList.toggle('pantry-have', have);
+  });
+
+  /* ---- per-recipe availability percentage badge (nav index) ----
+     Excludes the yoghurt row (and there's no chicken row to begin with) —
+     both are assumed always on hand, so only tracked pantry ingredients count. */
+  var recipeSections = Array.prototype.slice.call(document.querySelectorAll('.recipe'));
+  recipeSections.forEach(function(sec){
+    var badge = document.querySelector('.avail-pct[data-recipe="' + sec.id + '"]');
+    if(!badge) return;
+    var rows = Array.prototype.slice.call(sec.querySelectorAll('.ing div[data-pantry-id]'));
+    if(!rows.length) return;
+    var haveCount = rows.filter(function(row){
+      var ids = row.getAttribute('data-pantry-id').split(' ');
+      return ids.some(function(id){ return stockMap[id] === 'have'; });
+    }).length;
+    var pct = Math.round((haveCount / rows.length) * 100);
+    badge.textContent = pct + '%';
+    badge.classList.remove('low','mid','high');
+    badge.classList.add(pct >= 95 ? 'high' : (pct < 80 ? 'low' : 'mid'));
+    badge.hidden = false;
   });
 
   var AVAIL_KEY = 'showAvailability:v1';

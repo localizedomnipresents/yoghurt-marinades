@@ -126,6 +126,22 @@ h1{font-size:clamp(2.5rem,9vw,4.4rem)}
 }
 .idx-key{display:block;font-family:var(--body);font-size:.85rem;font-weight:400;color:var(--ink-2);margin-top:.12rem}
 
+.avail-pct{display:none}
+body.show-availability .avail-pct{
+  display:inline-block;
+  margin-left:.55rem;
+  padding:.05rem .5rem;
+  border-radius:999px;
+  font-family:var(--body);
+  font-size:.7rem;
+  font-weight:700;
+  letter-spacing:.02em;
+  vertical-align:.15em;
+}
+.avail-pct.low{background:#bfe3b8;color:#1f3d22}
+.avail-pct.mid{background:#5fa85a;color:#fff}
+.avail-pct.high{background:#1f4d28;color:#fff}
+
 /* ---------- generic sections ---------- */
 section{padding:clamp(2.8rem,8vw,4.5rem) 0 0}
 section > h2{font-size:clamp(1.6rem,4.6vw,2.1rem)}
