@@ -155,8 +155,8 @@
   .ing{margin:0;padding:0}
   .ing div{
     display:grid;
-    grid-template-columns:5.9rem 1fr;
-    gap:.2rem 1rem;
+    grid-template-columns:6.5rem minmax(0,1fr);
+    gap:.2rem 1.1rem;
     padding:.34rem 0;
     border-bottom:1px solid color-mix(in srgb,var(--rule) 70%,transparent);
   }
@@ -166,9 +166,11 @@
     font-weight:600;
     color:var(--c);
     text-align:right;
-    white-space:nowrap;
+    min-width:0;
+    overflow-wrap:break-word;
+    hyphens:none;
   }
-  .n{margin:0}
+  .n{margin:0;min-width:0}
   .sub{
     display:block;font-size:.82rem;color:var(--ink-2);
   }
@@ -189,7 +191,25 @@
   .note p + p{margin-top:.6rem}
 
   /* ---------- pantry ---------- */
-  .pantry{margin:1.8rem 0 0;display:grid;gap:1.9rem}
+  .filter{display:flex;flex-wrap:wrap;gap:.35rem;margin:1.5rem 0 0;max-width:var(--measure)}
+  .filter button{
+    font:inherit;font-size:.85rem;font-weight:500;
+    padding:.28rem .68rem;
+    border:1px solid var(--rule);
+    background:transparent;color:var(--ink-2);
+    border-radius:999px;cursor:pointer;
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .filter button:hover{border-color:var(--c,var(--ink-2));color:var(--c,var(--ink))}
+  .filter button[aria-pressed="true"]{
+    background:var(--c,var(--ink));
+    border-color:var(--c,var(--ink));
+    color:var(--paper);
+  }
+  .pantry-status{margin:1rem 0 0;font-size:.92rem;color:var(--ink-2);max-width:var(--measure)}
+  [hidden]{display:none!important}
+
+  .pantry{margin:1.8rem 0 0;display:grid;gap:1.9rem;align-items:start}
   @media(min-width:38rem){.pantry{grid-template-columns:1fr 1fr;gap:2rem 2.6rem}}
   .pantry h3{
     font-size:1.15rem;
@@ -226,7 +246,7 @@
   }
 
   @media print{
-    .bar,.index,footer{display:none}
+    .bar,.index,.filter,footer{display:none}
     body{background:#fff;color:#000;font-size:10.5pt}
     .recipe,section{break-inside:avoid;padding-top:1.4rem}
     .recipe h2{color:#000}
@@ -311,9 +331,9 @@
     <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Brown sugar</p></div>
     <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Soy sauce</p></div>
     <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Grated fresh ginger</p></div>
-    <div><span class="q" data-q="4" data-u="spring onions" data-u1="spring onion" data-r="whole">4 spring onions</span><p class="n">Chopped, green parts and all</p></div>
-    <div><span class="q" data-q="0.5" data-u="green pepper" data-r="half">½ green pepper</span><p class="n">Finely chopped</p></div>
-    <div><span class="q" data-q="5" data-u="cloves garlic" data-u1="clove garlic" data-r="whole">5 cloves garlic</span><p class="n">Crushed</p></div>
+    <div><span class="q" data-q="4" data-u="" data-r="whole">4</span><p class="n">Spring onions, chopped, green parts and all</p></div>
+    <div><span class="q" data-q="0.5" data-u="" data-r="half">½</span><p class="n">Green pepper, finely chopped</p></div>
+    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n">Garlic, crushed</p></div>
     <div><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n">Juiced</p></div>
   </div>
   <div class="note">
@@ -335,7 +355,7 @@
     <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Sweet paprika</p></div>
     <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
     <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
-    <div><span class="q" data-q="5" data-u="cloves garlic" data-u1="clove garlic" data-r="whole">5 cloves garlic</span><p class="n">Crushed</p></div>
+    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n">Garlic, crushed</p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -358,8 +378,8 @@
     <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
     <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
     <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Lemon juice</p></div>
-    <div><span class="q" data-q="5" data-u="cloves garlic" data-u1="clove garlic" data-r="whole">5 cloves garlic</span><p class="n">Crushed</p></div>
-    <div><span class="q" data-q="0.5" data-u="onion" data-r="half">½ onion</span><p class="n">Grated, juice and all</p></div>
+    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n">Garlic, crushed</p></div>
+    <div><span class="q" data-q="0.5" data-u="" data-r="half">½</span><p class="n">Onion, grated, juice and all</p></div>
   </div>
   <div class="note">
     <h3>Worth knowing</h3>
@@ -405,8 +425,8 @@
     <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Sunflower oil</p></div>
     <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
     <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
-    <div><span class="q" data-q="5" data-u="cloves garlic" data-u1="clove garlic" data-r="whole">5 cloves garlic</span><p class="n">Crushed</p></div>
-    <div><span class="q" data-q="1" data-u="onions" data-u1="onion" data-r="whole">1 onion</span><p class="n">Small, grated</p></div>
+    <div><span class="q" data-q="5" data-u="cloves" data-u1="clove" data-r="whole">5 cloves</span><p class="n">Garlic, crushed</p></div>
+    <div><span class="q" data-q="1" data-u="" data-r="whole">1</span><p class="n">Onion, small, grated</p></div>
     <div><span class="q" data-q="1" data-u="limes" data-u1="lime" data-r="whole">1 lime</span><p class="n">Juiced</p></div>
   </div>
   <div class="note">
@@ -433,7 +453,7 @@
     <div><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n">Black pepper</p></div>
     <div><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n">Salt</p></div>
     <div><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n">Sunflower oil</p></div>
-    <div><span class="q" data-q="6" data-u="cloves garlic" data-u1="clove garlic" data-r="whole">6 cloves garlic</span><p class="n">Crushed</p></div>
+    <div><span class="q" data-q="6" data-u="cloves" data-u1="clove" data-r="whole">6 cloves</span><p class="n">Garlic, crushed</p></div>
     <div><span class="q" data-q="1" data-u="oranges" data-u1="orange" data-r="whole">1 orange</span><p class="n">Juiced</p></div>
     <div><span class="q" data-q="2" data-u="limes" data-u1="lime" data-r="whole">2 limes</span><p class="n">Juiced</p></div>
   </div>
@@ -446,66 +466,81 @@
 
 <section id="pantry">
   <h2>Everything the six need</h2>
-  <p class="lede">Quantities are for the fresh items only, sized to cook all six once over a couple of weeks for four people. Spices in refill bags or from a bulk bin run roughly a third of the branded-jar price.</p>
+  <p class="lede">The full list buys all six. Pick a single marinade to strip it back to one shopping trip. Spices in refill bags or from a bulk bin run roughly a third of the branded-jar price.</p>
+
+  <div class="filter" role="group" aria-label="Show pantry items for">
+    <button type="button" data-only="all" aria-pressed="true">All six</button>
+    <button type="button" data-only="jerk" aria-pressed="false" style="--c:var(--jerk)">Mild jerk</button>
+    <button type="button" data-only="greek" aria-pressed="false" style="--c:var(--greek)">Greek lemon-oregano</button>
+    <button type="button" data-only="shawarma" aria-pressed="false" style="--c:var(--shawarma)">Shawarma</button>
+    <button type="button" data-only="honey" aria-pressed="false" style="--c:var(--honey)">Herb, mustard &amp; honey</button>
+    <button type="button" data-only="curry" aria-pressed="false" style="--c:var(--curry)">Jamaican curry</button>
+    <button type="button" data-only="achiote" aria-pressed="false" style="--c:var(--achiote)">Achiote pibil</button>
+  </div>
+  <p class="pantry-status" id="pantry-status" role="status">Showing all 33 items, enough to cook every marinade once.</p>
 
   <div class="pantry">
-    <div>
+    <div data-group>
       <h3>Dry spices</h3>
       <ul>
-        <li>Sweet paprika</li>
-        <li>Ground cumin</li>
-        <li>Ground coriander</li>
-        <li>Turmeric (borrie)</li>
-        <li>Ground allspice</li>
-        <li>Ground cinnamon</li>
-        <li>Ground nutmeg</li>
-        <li>Ground cloves</li>
-        <li>Mild curry powder</li>
-        <li>Garlic powder</li>
-        <li>Onion powder</li>
-        <li>Black pepper</li>
-        <li>Salt</li>
+        <li data-use="greek achiote">Sweet paprika</li>
+        <li data-use="shawarma achiote">Ground cumin</li>
+        <li data-use="shawarma">Ground coriander</li>
+        <li data-use="curry achiote">Turmeric (borrie)</li>
+        <li data-use="jerk shawarma curry">Ground allspice</li>
+        <li data-use="jerk shawarma achiote">Ground cinnamon</li>
+        <li data-use="jerk">Ground nutmeg</li>
+        <li data-use="achiote">Ground cloves</li>
+        <li data-use="curry">Mild curry powder</li>
+        <li data-use="honey">Garlic powder</li>
+        <li data-use="honey">Onion powder</li>
+        <li data-use="jerk greek shawarma honey curry achiote">Black pepper</li>
+        <li data-use="jerk greek shawarma honey curry achiote">Salt</li>
       </ul>
     </div>
 
-    <div>
+    <div data-group>
       <h3>Dried herbs</h3>
       <ul>
-        <li>Oregano</li>
-        <li>Thyme</li>
-        <li>Parsley</li>
-      </ul>
-      <h3 style="margin-top:1.6rem">Chilled</h3>
-      <ul>
-        <li>Plain full-fat yogurt <span>1.5 kg</span></li>
-        <li>Chicken thighs, deboned <span>1.5 kg</span></li>
+        <li data-use="greek achiote">Oregano</li>
+        <li data-use="jerk honey curry">Thyme</li>
+        <li data-use="honey">Parsley</li>
       </ul>
     </div>
 
-    <div>
+    <div data-group>
       <h3>Fresh</h3>
       <ul>
-        <li>Garlic <span>2 bulbs</span></li>
-        <li>Fresh ginger <span>1 knob</span></li>
-        <li>Spring onions <span>1 bunch</span></li>
-        <li>Green pepper <span>1</span></li>
-        <li>Onions <span>2</span></li>
-        <li>Lemons <span>3</span></li>
-        <li>Limes <span>4</span></li>
-        <li>Orange <span>1</span></li>
+        <li data-use="jerk greek shawarma curry achiote">Garlic <span data-all="2 bulbs" data-jerk="5 cloves" data-greek="5 cloves" data-shawarma="5 cloves" data-curry="5 cloves" data-achiote="6 cloves">2 bulbs</span></li>
+        <li data-use="jerk curry">Fresh ginger <span>1 knob</span></li>
+        <li data-use="jerk">Spring onions <span data-all="1 bunch" data-jerk="4">1 bunch</span></li>
+        <li data-use="jerk">Green pepper <span>1</span></li>
+        <li data-use="shawarma curry">Onions <span data-all="2" data-shawarma="1" data-curry="1">2</span></li>
+        <li data-use="greek shawarma honey">Lemons <span data-all="3" data-greek="1" data-shawarma="1" data-honey="1">3</span></li>
+        <li data-use="jerk curry achiote">Limes <span data-all="4" data-jerk="1" data-curry="1" data-achiote="2">4</span></li>
+        <li data-use="achiote">Orange <span>1</span></li>
       </ul>
     </div>
 
-    <div>
+    <div data-group>
+      <h3>Chilled</h3>
+      <ul>
+        <li data-use="jerk greek shawarma honey curry achiote">Plain full-fat yogurt <span class="q" data-q="250" data-u="g" data-r="mass">250 g</span></li>
+        <li data-use="jerk greek shawarma honey curry achiote">Chicken thighs, deboned <span class="q" data-q="1" data-u="kg" data-u1="kg" data-r="spoon">1 kg</span></li>
+      </ul>
+      <p class="sub" style="margin:.55rem 0 0">Per batch. These two follow the buttons at the top of the page.</p>
+    </div>
+
+    <div data-group>
       <h3>Cupboard</h3>
       <ul>
-        <li>Sunflower oil</li>
-        <li>Olive oil</li>
-        <li>Dijon mustard</li>
-        <li>Honey</li>
-        <li>Soy sauce</li>
-        <li>Brown sugar</li>
-        <li>Tomato paste</li>
+        <li data-use="shawarma curry achiote">Sunflower oil</li>
+        <li data-use="greek shawarma">Olive oil</li>
+        <li data-use="honey">Dijon mustard</li>
+        <li data-use="honey">Honey</li>
+        <li data-use="jerk">Soy sauce</li>
+        <li data-use="jerk">Brown sugar</li>
+        <li data-use="achiote">Tomato paste</li>
       </ul>
     </div>
 
@@ -575,6 +610,57 @@
         other.setAttribute('aria-pressed', String(other === button));
       });
       apply(parseFloat(button.getAttribute('data-scale')));
+    });
+  });
+
+  /* ---- pantry filter ---- */
+  var NAMES = {
+    jerk:'Mild jerk',
+    greek:'Greek lemon-oregano',
+    shawarma:'Shawarma warm spice',
+    honey:'Herb, mustard and honey',
+    curry:'Jamaican curry',
+    achiote:'Achiote pibil'
+  };
+
+  var chips = Array.prototype.slice.call(document.querySelectorAll('[data-only]'));
+  var items = Array.prototype.slice.call(document.querySelectorAll('.pantry li[data-use]'));
+  var groups = Array.prototype.slice.call(document.querySelectorAll('.pantry [data-group]'));
+  var status = document.getElementById('pantry-status');
+
+  function filter(key){
+    var shown = 0;
+
+    items.forEach(function(item){
+      var uses = (item.getAttribute('data-use') || '').split(' ');
+      var visible = (key === 'all') || uses.indexOf(key) > -1;
+      item.hidden = !visible;
+      if(visible) shown++;
+
+      var amount = item.querySelector('span[data-all]');
+      if(amount){
+        var override = amount.getAttribute('data-' + key);
+        amount.textContent = (key !== 'all' && override) ? override : amount.getAttribute('data-all');
+      }
+    });
+
+    groups.forEach(function(group){
+      var any = Array.prototype.slice.call(group.querySelectorAll('li[data-use]'))
+        .some(function(item){ return !item.hidden; });
+      group.hidden = !any;
+    });
+
+    status.textContent = (key === 'all')
+      ? 'Showing all ' + shown + ' items, enough to cook every marinade once.'
+      : 'Showing the ' + shown + ' items ' + NAMES[key] + ' needs.';
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      chips.forEach(function(other){
+        other.setAttribute('aria-pressed', String(other === chip));
+      });
+      filter(chip.getAttribute('data-only'));
     });
   });
 })();
