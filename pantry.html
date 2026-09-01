@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en-ZA">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pantry · Ten mild yoghurt marinades</title>
+<meta name="description" content="Shopping list for ten mild yoghurt-based chicken marinades — spices, aromatics and sauces, filterable by recipe, with an available/out-of-stock toggle for each item.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,50,1;1,9..144,400..600,50,1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <a class="bar-btn" href="index.html">Recipes</a>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="hero" style="padding-top:clamp(2rem,6vw,3.5rem)">
+  <h1>Pantry</h1>
+  <p class="standfirst">Everything the ten marinades need, minus the yoghurt and the chicken — those are assumed always on hand, one standard 1&nbsp;kg batch at a time. Mark what's already in your cupboard here; it carries back to the "Show availability" view on the recipes.</p>
+</header>
+
+<section id="pantry" style="padding-top:clamp(1.5rem,4vw,2.5rem)">
+  <div class="filter" role="group" aria-label="Show pantry items for">
+    <button type="button" data-only="all" aria-pressed="true">All ten</button>
+    <button type="button" data-only="jerk" aria-pressed="false" style="--c:var(--jerk)">Mild jerk</button>
+    <button type="button" data-only="greek" aria-pressed="false" style="--c:var(--greek)">Greek lemon-oregano</button>
+    <button type="button" data-only="shawarma" aria-pressed="false" style="--c:var(--shawarma)">Shawarma</button>
+    <button type="button" data-only="honey" aria-pressed="false" style="--c:var(--honey)">Herb, mustard &amp; honey</button>
+    <button type="button" data-only="curry" aria-pressed="false" style="--c:var(--curry)">Jamaican curry</button>
+    <button type="button" data-only="achiote" aria-pressed="false" style="--c:var(--achiote)">Achiote pibil</button>
+    <button type="button" data-only="korean" aria-pressed="false" style="--c:var(--korean)">Korean bulgogi</button>
+    <button type="button" data-only="miso" aria-pressed="false" style="--c:var(--miso)">Miso-ginger</button>
+    <button type="button" data-only="hoisin" aria-pressed="false" style="--c:var(--hoisin)">Five-spice hoisin</button>
+    <button type="button" data-only="viet" aria-pressed="false" style="--c:var(--viet)">Lemongrass-shallot</button>
+  </div>
+  <p class="pantry-status" id="pantry-status" role="status">Showing all items, enough to cook every marinade once.</p>
+
+  <div class="pantry">
+    <div data-group>
+      <h3>Dry spices</h3>
+      <ul>
+        <li data-use="greek achiote" data-id="sweet-paprika"><span class="pantry-item"><span class="pantry-name">Sweet paprika</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="shawarma achiote" data-id="ground-cumin"><span class="pantry-item"><span class="pantry-name">Ground cumin</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="shawarma" data-id="ground-coriander"><span class="pantry-item"><span class="pantry-name">Ground coriander</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="curry achiote" data-id="turmeric-borrie"><span class="pantry-item"><span class="pantry-name">Turmeric (borrie)</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk shawarma curry" data-id="ground-allspice"><span class="pantry-item"><span class="pantry-name">Ground allspice</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk shawarma achiote" data-id="ground-cinnamon"><span class="pantry-item"><span class="pantry-name">Ground cinnamon</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk" data-id="ground-nutmeg"><span class="pantry-item"><span class="pantry-name">Ground nutmeg</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="achiote" data-id="ground-cloves"><span class="pantry-item"><span class="pantry-name">Ground cloves</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="curry" data-id="mild-curry-powder"><span class="pantry-item"><span class="pantry-name">Mild curry powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="honey" data-id="garlic-powder"><span class="pantry-item"><span class="pantry-name">Garlic powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="honey" data-id="onion-powder"><span class="pantry-item"><span class="pantry-name">Onion powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="hoisin" data-id="chinese-five-spice-powder"><span class="pantry-item"><span class="pantry-name">Chinese five-spice powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk greek shawarma honey curry achiote korean miso hoisin viet" data-id="black-pepper"><span class="pantry-item"><span class="pantry-name">Black pepper</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk greek shawarma honey curry achiote" data-id="salt"><span class="pantry-item"><span class="pantry-name">Salt</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+      </ul>
+    </div>
+
+    <div data-group>
+      <h3>Dried herbs</h3>
+      <ul>
+        <li data-use="greek achiote" data-id="oregano"><span class="pantry-item"><span class="pantry-name">Oregano</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk honey curry" data-id="thyme"><span class="pantry-item"><span class="pantry-name">Thyme</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="honey" data-id="parsley"><span class="pantry-item"><span class="pantry-name">Parsley</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+      </ul>
+    </div>
+
+    <div data-group>
+      <h3>Fresh</h3>
+      <ul>
+        <li data-use="jerk greek shawarma curry achiote korean miso hoisin viet" data-id="garlic"><span class="pantry-item"><span class="pantry-name">Garlic</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk curry korean miso hoisin" data-id="fresh-ginger"><span class="pantry-item"><span class="pantry-name">Fresh ginger</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk korean" data-id="spring-onions"><span class="pantry-item"><span class="pantry-name">Spring onions</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk" data-id="green-pepper"><span class="pantry-item"><span class="pantry-name">Green pepper</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="shawarma curry" data-id="onions"><span class="pantry-item"><span class="pantry-name">Onions</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="greek shawarma honey" data-id="lemons"><span class="pantry-item"><span class="pantry-name">Lemons</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk curry achiote" data-id="limes"><span class="pantry-item"><span class="pantry-name">Limes</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="achiote" data-id="orange"><span class="pantry-item"><span class="pantry-name">Orange</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="viet" data-id="lemongrass"><span class="pantry-item"><span class="pantry-name">Lemongrass</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="viet" data-id="shallots"><span class="pantry-item"><span class="pantry-name">Shallots</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="korean" data-id="pear-or-apple"><span class="pantry-item"><span class="pantry-name">Pear or apple</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+      </ul>
+    </div>
+
+    <div data-group>
+      <h3>Cupboard</h3>
+      <ul>
+        <li data-use="shawarma curry achiote viet" data-id="sunflower-oil"><span class="pantry-item"><span class="pantry-name">Sunflower oil</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="greek shawarma" data-id="olive-oil"><span class="pantry-item"><span class="pantry-name">Olive oil</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="honey" data-id="dijon-mustard"><span class="pantry-item"><span class="pantry-name">Dijon mustard</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="honey" data-id="honey"><span class="pantry-item"><span class="pantry-name">Honey</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk korean miso hoisin viet" data-id="soy-sauce"><span class="pantry-item"><span class="pantry-name">Soy sauce</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="jerk korean viet" data-id="brown-sugar"><span class="pantry-item"><span class="pantry-name">Brown sugar</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="achiote" data-id="tomato-paste"><span class="pantry-item"><span class="pantry-name">Tomato paste</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="viet" data-id="rice-vinegar"><span class="pantry-item"><span class="pantry-name">Rice vinegar</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+      </ul>
+    </div>
+
+    <div data-group>
+      <h3>Asian condiments</h3>
+      <ul>
+        <li data-use="korean miso hoisin" data-id="sesame-oil"><span class="pantry-item"><span class="pantry-name">Sesame oil</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="miso" data-id="white-miso-shiro"><span class="pantry-item"><span class="pantry-name">White miso (shiro)</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="miso" data-id="mirin"><span class="pantry-item"><span class="pantry-name">Mirin</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="hoisin" data-id="hoisin-sauce"><span class="pantry-item"><span class="pantry-name">Hoisin sauce</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+        <li data-use="korean" data-id="toasted-sesame-seeds"><span class="pantry-item"><span class="pantry-name">Toasted sesame seeds</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
+      </ul>
+    </div>
+
+    <div class="avoid">
+      <h3>Leave on the shelf</h3>
+      <ul>
+        <li>Hot or extra-hot curry powder</li>
+        <li>Durban masala</li>
+        <li>Hot or hot-smoked paprika</li>
+        <li>Chilli powder and cayenne</li>
+        <li>Ready-made jerk paste</li>
+        <li>Harissa and berbere</li>
+        <li>Achiote paste</li>
+        <li>Anything naming scotch bonnet, chipotle or ancho</li>
+        <li>Gochujang and gochugaru</li>
+        <li>Sriracha, sambal and chilli oil</li>
+      </ul>
+      <p style="margin-top:1rem;font-size:.94rem">Read the ingredients panel even on the mild versions. Plenty of local blends list chilli or cayenne well up the list, and mild on a label does not always mean mild at your table.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p>Stock marks here are saved in this browser and shared with the recipes page's "Show availability" view — no account, no server, just this device.</p>
+  <p style="margin-top:1rem"><a href="index.html">&larr; Back to the recipes</a> &nbsp;·&nbsp; <a class="totop" href="#">Back to the top</a></p>
+</footer>
+
+</div>
+
+<script>
+(function(){
+  var NAMES = {
+    jerk:'Mild jerk',
+    greek:'Greek lemon-oregano',
+    shawarma:'Shawarma warm spice',
+    honey:'Herb, mustard and honey',
+    curry:'Jamaican curry',
+    achiote:'Achiote pibil',
+    korean:'Korean bulgogi-style',
+    miso:'Japanese miso-ginger',
+    hoisin:'Chinese five-spice hoisin',
+    viet:'Vietnamese lemongrass-shallot'
+  };
+
+  var chips = Array.prototype.slice.call(document.querySelectorAll('[data-only]'));
+  var items = Array.prototype.slice.call(document.querySelectorAll('.pantry li[data-use]'));
+  var groups = Array.prototype.slice.call(document.querySelectorAll('.pantry [data-group]'));
+  var status = document.getElementById('pantry-status');
+
+  function filter(key){
+    var shown = 0;
+    items.forEach(function(item){
+      var uses = (item.getAttribute('data-use') || '').split(' ');
+      var visible = (key === 'all') || uses.indexOf(key) > -1;
+      item.hidden = !visible;
+      if(visible) shown++;
+    });
+    groups.forEach(function(group){
+      var any = Array.prototype.slice.call(group.querySelectorAll('li[data-use]'))
+        .some(function(item){ return !item.hidden; });
+      group.hidden = !any;
+    });
+    status.textContent = (key === 'all')
+      ? 'Showing all ' + shown + ' items, enough to cook every marinade once.'
+      : 'Showing the ' + shown + ' items ' + NAMES[key] + ' needs.';
+  }
+
+  chips.forEach(function(chip){
+    chip.addEventListener('click', function(){
+      chips.forEach(function(other){
+        other.setAttribute('aria-pressed', String(other === chip));
+      });
+      filter(chip.getAttribute('data-only'));
+    });
+  });
+
+  filter('all');
+
+  /* ---- stock toggle (Available / Out of stock), persisted locally ----
+     Shared key with the recipes page, so this is what its
+     "Show availability" view reads from. */
+  var STOCK_KEY = 'pantryStock:v1';
+  var stockMap = {};
+  try{ stockMap = JSON.parse(localStorage.getItem(STOCK_KEY) || '{}'); }catch(e){ stockMap = {}; }
+
+  function saveStock(){
+    try{ localStorage.setItem(STOCK_KEY, JSON.stringify(stockMap)); }catch(e){}
+  }
+
+  function setStockState(li, btn, state){
+    li.setAttribute('data-state', state);
+    li.classList.toggle('have', state === 'have');
+    btn.setAttribute('data-state', state);
+    btn.setAttribute('aria-pressed', String(state === 'have'));
+    btn.textContent = state === 'have' ? 'Available' : 'Out of stock';
+  }
+
+  var stockButtons = Array.prototype.slice.call(document.querySelectorAll('.pantry .stock'));
+  stockButtons.forEach(function(btn){
+    var li = btn.closest('li');
+    var id = li.getAttribute('data-id');
+    setStockState(li, btn, stockMap[id] === 'have' ? 'have' : 'need');
+    btn.addEventListener('click', function(){
+      var next = li.getAttribute('data-state') === 'have' ? 'need' : 'have';
+      setStockState(li, btn, next);
+      stockMap[id] = next;
+      saveStock();
+    });
+  });
+})();
+</script>
+
+</body>
+</html>

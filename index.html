@@ -4,396 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Ten mild yoghurt marinades</title>
-<meta name="description" content="Ten yoghurt-based chicken marinades with no chilli — Caribbean, Mexican, Middle Eastern and Asian flavours, all no hotter than black pepper — with a full pantry list.">
+<meta name="description" content="Ten yoghurt-based chicken marinades with no chilli — Caribbean, Mexican, Middle Eastern and Asian flavours, all no hotter than black pepper. Shopping list on a separate Pantry page.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,400..700,50,1;1,9..144,400..600,50,1&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --paper:#edefe9;
-    --panel:#e4e7dd;
-    --ink:#23211b;
-    --ink-2:#5f5d52;
-    --rule:#c9cec0;
-
-    --jerk:#2f4a3a;
-    --greek:#65772a;
-    --shawarma:#7a462a;
-    --honey:#a87e17;
-    --curry:#c2650f;
-    --achiote:#9d3520;
-    --korean:#1f5a66;
-    --miso:#4a3f73;
-    --hoisin:#7a2d52;
-    --viet:#2f6b4f;
-
-    --display:"Fraunces",Georgia,serif;
-    --body:"Instrument Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
-
-    --measure:34rem;
-    --pad:clamp(1.15rem,4vw,2.5rem);
-  }
-
-  *{box-sizing:border-box}
-  html{-webkit-text-size-adjust:100%}
-  html:focus-within{scroll-behavior:smooth}
-
-  body{
-    margin:0;
-    background:var(--paper);
-    color:var(--ink);
-    font-family:var(--body);
-    font-size:clamp(1rem,.97rem + .2vw,1.075rem);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  .wrap{max-width:46rem;margin:0 auto;padding:0 var(--pad)}
-  p{max-width:var(--measure)}
-
-  h1,h2,h3{
-    font-family:var(--display);
-    font-variation-settings:"SOFT" 50,"WONK" 1;
-    font-weight:600;
-    line-height:1.05;
-    letter-spacing:-.012em;
-    margin:0;
-    text-wrap:balance;
-  }
-
-  a{color:inherit}
-  :focus-visible{outline:2.5px solid var(--ink);outline-offset:3px;border-radius:2px}
-
-  /* ---------- sticky utility bar ---------- */
-  .bar{
-    position:sticky;top:0;z-index:20;
-    background:color-mix(in srgb,var(--paper) 88%,transparent);
-    backdrop-filter:blur(9px);
-    border-bottom:1px solid var(--rule);
-  }
-  .bar-in{
-    max-width:46rem;margin:0 auto;padding:.5rem var(--pad);
-    display:flex;align-items:center;justify-content:space-between;gap:.75rem 1rem;
-    flex-wrap:wrap;
-  }
-  .bar-label{font-size:.82rem;color:var(--ink-2)}
-  .bar-controls{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem;margin-left:auto}
-  .scale{display:flex;gap:.3rem}
-  .scale button{
-    font:inherit;font-size:.85rem;font-weight:500;
-    padding:.28rem .62rem;
-    border:1px solid var(--rule);
-    background:transparent;color:var(--ink-2);
-    border-radius:999px;cursor:pointer;
-    transition:background .15s,color .15s,border-color .15s;
-  }
-  .scale button:hover{border-color:var(--ink-2)}
-  .scale button[aria-pressed="true"]{
-    background:var(--ink);color:var(--paper);border-color:var(--ink);
-  }
-  #avail-toggle{
-    font:inherit;font-size:.85rem;font-weight:500;
-    padding:.28rem .62rem;
-    border:1px solid var(--rule);
-    background:transparent;color:var(--ink-2);
-    border-radius:999px;cursor:pointer;
-    white-space:nowrap;
-    transition:background .15s,color .15s,border-color .15s;
-  }
-  #avail-toggle:hover{border-color:var(--ink-2)}
-  #avail-toggle[aria-pressed="true"]{
-    background:var(--ink);color:var(--paper);border-color:var(--ink);
-  }
-
-  /* ---------- hero ---------- */
-  header.hero{padding:clamp(3rem,9vw,6rem) 0 0}
-  h1{font-size:clamp(2.5rem,9vw,4.4rem)}
-  .standfirst{
-    margin:1.1rem 0 0;
-    font-size:1.08rem;
-    color:var(--ink-2);
-  }
-  .ratio{
-    margin:1.6rem 0 0;
-    font-family:var(--display);
-    font-variation-settings:"SOFT" 50,"WONK" 1;
-    font-style:italic;
-    font-size:1.15rem;
-    color:var(--ink);
-  }
-
-  /* ---------- swatch index ---------- */
-  .index{margin:clamp(2.2rem,6vw,3.2rem) 0 0;border-top:1px solid var(--rule)}
-  .index a{
-    display:grid;
-    grid-template-columns:3.2rem 1fr;
-    align-items:center;
-    gap:1rem;
-    padding:.65rem 0;
-    border-bottom:1px solid var(--rule);
-    text-decoration:none;
-  }
-  .swatch{
-    height:2.4rem;width:3.2rem;
-    background:var(--c);
-    transition:width .22s ease,transform .22s ease,background .22s ease;
-  }
-  .index a:hover .swatch,.index a:focus-visible .swatch{
-    width:calc(4.2rem - 5px);
-    background:linear-gradient(to right, var(--c) 56%, color-mix(in srgb,var(--c) 25%,transparent));
-  }
-  .index a:hover .idx-name,.index a:focus-visible .idx-name{color:var(--c)}
-  .idx-name{
-    font-family:var(--display);
-    font-variation-settings:"SOFT" 50,"WONK" 1;
-    font-size:1.22rem;font-weight:600;line-height:1.2;
-    transition:color .15s;
-  }
-  .idx-key{display:block;font-family:var(--body);font-size:.85rem;font-weight:400;color:var(--ink-2);margin-top:.12rem}
-
-  /* ---------- generic sections ---------- */
-  section{padding:clamp(2.8rem,8vw,4.5rem) 0 0}
-  section > h2{font-size:clamp(1.6rem,4.6vw,2.1rem)}
-  .lede{margin-top:.7rem;color:var(--ink-2)}
-
-  .basics{margin:1.4rem 0 0;padding:0;list-style:none;max-width:var(--measure)}
-  .basics li{padding:.62rem 0;border-top:1px solid var(--rule)}
-  .basics li:last-child{border-bottom:1px solid var(--rule)}
-  .basics b{font-weight:600}
-
-  /* ---------- recipe ---------- */
-  .recipe{scroll-margin-top:4.2rem}
-  .recipe-head{
-    border-top:5px solid var(--c);
-    padding-top:.9rem;
-    margin-bottom:1.5rem;
-  }
-  .recipe-head-top{
-    display:flex;
-    align-items:baseline;
-    justify-content:space-between;
-    gap:1rem;
-    flex-wrap:wrap;
-  }
-  .recipe h2{font-size:clamp(1.85rem,6vw,2.7rem);color:var(--c)}
-  .heat{
-    margin:.55rem 0 0;
-    font-size:.92rem;color:var(--ink-2);
-  }
-  .view-toggle{
-    font:inherit;font-size:.82rem;font-weight:500;
-    padding:.32rem .75rem;
-    border:1px solid var(--c);
-    background:transparent;color:var(--c);
-    border-radius:999px;cursor:pointer;
-    white-space:nowrap;flex-shrink:0;
-    transition:background .15s,color .15s;
-  }
-  .view-toggle[aria-pressed="true"]{background:var(--c);color:var(--paper)}
-
-  .ing{margin:0;padding:0}
-  .ing div{
-    display:grid;
-    grid-template-columns:6.5rem minmax(0,1fr);
-    gap:.2rem 1.1rem;
-    padding:.34rem 0;
-    border-bottom:1px solid color-mix(in srgb,var(--rule) 70%,transparent);
-  }
-  .ing div:first-child{border-top:1px solid var(--rule)}
-  .q{
-    font-variant-numeric:tabular-nums;
-    font-weight:600;
-    color:var(--c);
-    text-align:right;
-    min-width:0;
-    overflow-wrap:break-word;
-    hyphens:none;
-  }
-  .n{margin:0;min-width:0}
-  .core{font-weight:inherit}
-  .sub{
-    display:block;font-size:.82rem;color:var(--ink-2);
-  }
-
-  /* compact "ingredients only" view — grouped by category, styled like the pantry list */
-  .ing.compact{display:flex;flex-direction:column;padding:.1rem 0 .2rem}
-  .cat-head{display:none}
-  .ing.compact .cat-head{
-    display:block;
-    font-size:.92rem;font-weight:700;letter-spacing:.03em;
-    text-transform:uppercase;color:var(--ink-2);
-    padding:.85rem 0 .3rem;
-  }
-  .ing.compact .cat-head.cat-empty{display:none}
-  .ing.compact [data-cat-head="base"]{order:1;padding-top:.1rem}
-  .ing.compact [data-cat-head="spice"]{order:11}
-  .ing.compact [data-cat-head="wet"]{order:21}
-  .ing.compact [data-cat-head="fresh"]{order:31}
-  .ing.compact div[data-cat="base"]{order:2}
-  .ing.compact div[data-cat="spice"]{order:12}
-  .ing.compact div[data-cat="wet"]{order:22}
-  .ing.compact div[data-cat="fresh"]{order:32}
-  .ing.compact div{
-    display:block;
-    border:none;
-    border-bottom:1px solid color-mix(in srgb,var(--rule) 70%,transparent);
-    padding:.34rem 1.6rem .34rem 1.1rem;
-    grid-template-columns:none;
-    position:relative;
-  }
-  .ing.compact div::before{
-    content:"";
-    position:absolute;
-    left:0;top:.78rem;
-    width:.34rem;height:.34rem;
-    border-radius:50%;
-    background:var(--c);
-  }
-  body.show-availability .ing.compact div:not(.pantry-have)::after{
-    content:"";
-    position:absolute;
-    right:0;top:50%;
-    transform:translateY(-50%);
-    width:.95rem;height:.95rem;
-    background-color:var(--c);
-    -webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='black' stroke-width='2.5'/%3E%3Cline x1='5.6' y1='18.4' x2='18.4' y2='5.6' stroke='black' stroke-width='2.5'/%3E%3C/svg%3E") no-repeat center / contain;
-    mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle cx='12' cy='12' r='9' fill='none' stroke='black' stroke-width='2.5'/%3E%3Cline x1='5.6' y1='18.4' x2='18.4' y2='5.6' stroke='black' stroke-width='2.5'/%3E%3C/svg%3E") no-repeat center / contain;
-  }
-  .ing.compact div:first-child{border-top:none}
-  .ing.compact .q{display:none}
-  .ing.compact .n{display:block;margin:0;font-size:.97rem}
-  .ing.compact .detail,.ing.compact .sub{display:none}
-  .ing.compact .core{font-weight:400;color:var(--ink)}
-
-  .note{
-    margin:1.4rem 0 0;
-    padding:1rem 1.15rem;
-    background:var(--panel);
-    max-width:var(--measure);
-    font-size:.96rem;
-  }
-  .note h3{
-    font-size:1rem;font-weight:600;margin-bottom:.3rem;
-    font-family:var(--body);letter-spacing:0;
-    font-variation-settings:normal;
-  }
-  .note p{margin:0}
-  .note p + p{margin-top:.6rem}
-
-  /* ---------- pantry ---------- */
-  .filter{display:flex;flex-wrap:wrap;gap:.35rem;margin:1.5rem 0 0;max-width:var(--measure)}
-  .filter button{
-    font:inherit;font-size:.85rem;font-weight:500;
-    padding:.28rem .68rem;
-    border:1px solid var(--rule);
-    background:transparent;color:var(--ink-2);
-    border-radius:999px;cursor:pointer;
-    transition:background .15s,color .15s,border-color .15s;
-  }
-  .filter button:hover{border-color:var(--c,var(--ink-2));color:var(--c,var(--ink))}
-  .filter button[aria-pressed="true"]{
-    background:var(--c,var(--ink));
-    border-color:var(--c,var(--ink));
-    color:var(--paper);
-  }
-  .pantry-status{margin:1rem 0 0;font-size:.92rem;color:var(--ink-2);max-width:var(--measure)}
-  [hidden]{display:none!important}
-
-  .pantry{margin:1.8rem 0 0;display:grid;gap:1.9rem;align-items:start}
-  @media(min-width:38rem){.pantry{grid-template-columns:1fr 1fr;gap:2rem 2.6rem}}
-  .pantry h3{
-    font-size:1.15rem;
-    padding-bottom:.4rem;
-    border-bottom:2px solid var(--ink);
-  }
-  .pantry ul{margin:.7rem 0 0;padding:0;list-style:none}
-  .pantry li{
-    padding:.3rem 0;
-    border-bottom:1px solid color-mix(in srgb,var(--rule) 70%,transparent);
-    font-size:.97rem;
-    display:flex;justify-content:space-between;align-items:center;gap:.75rem;
-  }
-  .pantry-item{
-    display:flex;flex-wrap:wrap;align-items:baseline;gap:.4rem;
-    flex:1;min-width:0;
-  }
-  .pantry-item .q,.pantry-item span{color:var(--ink-2);font-variant-numeric:tabular-nums;white-space:nowrap}
-  .pantry-item span:not(.pantry-name){display:none}
-  .stock{
-    font:inherit;font-size:.72rem;font-weight:500;
-    padding:.2rem .55rem;
-    border:1px solid var(--rule);
-    background:transparent;color:var(--ink-2);
-    border-radius:999px;cursor:pointer;
-    white-space:nowrap;flex-shrink:0;
-    transition:background .15s,color .15s,border-color .15s;
-  }
-  .stock:hover{border-color:var(--ink-2)}
-  .stock[data-state="have"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
-  .pantry li.have .pantry-name,
-  .pantry li.have .pantry-item .q,
-  .pantry li.have .pantry-item span,
-  li[data-state="have"] .pantry-name,
-  li[data-state="have"] .pantry-item .q,
-  li[data-state="have"] .pantry-item span{
-    color:var(--ink-2);
-    opacity:.65;
-  }
-  .avoid{grid-column:1/-1}
-  .avoid h3{border-bottom-color:var(--achiote);color:var(--achiote)}
-  .avoid ul{columns:2;column-gap:2rem}
-  @media(max-width:30rem){.avoid ul{columns:1}}
-  .avoid li{display:block;break-inside:avoid}
-
-  /* ---------- footer ---------- */
-  footer{
-    margin-top:clamp(3.5rem,9vw,5.5rem);
-    border-top:1px solid var(--rule);
-    padding:1.6rem 0 3.5rem;
-    font-size:.88rem;color:var(--ink-2);
-  }
-  footer p{max-width:var(--measure)}
-  .totop{text-decoration:none;border-bottom:1px solid var(--rule)}
-
-  @media(prefers-reduced-motion:reduce){
-    html:focus-within{scroll-behavior:auto}
-    *{transition:none!important}
-  }
-
-  @media print{
-    .bar,.index,.filter,.view-toggle,.stock,footer{display:none}
-    body{background:#fff;color:#000;font-size:10.5pt}
-    .recipe,section{break-inside:avoid;padding-top:1.4rem}
-    .recipe h2{color:#000}
-    .q{color:#000}
-    .note{background:#f2f2f2}
-    /* always print full quantities, even if a recipe is mid-toggle on screen */
-    .ing.compact{display:block}
-    .cat-head{display:none}
-    .ing.compact div{
-      display:grid;grid-template-columns:6.5rem minmax(0,1fr);
-      gap:.2rem 1.1rem;padding:.34rem 0;border-bottom:1px solid #ddd;
-    }
-    .ing.compact div::before,.ing.compact div::after{display:none!important}
-    .ing.compact .q{display:block}
-    .ing.compact .detail,.ing.compact .sub{display:inline}
-    .ing.compact .core{display:inline;padding:0;background:none;border:none;font-size:inherit}
-  }
-</style>
+<link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
 <div class="bar">
   <div class="bar-in">
-    <span class="bar-label">Quantities for</span>
-    <div class="bar-controls">
-      <div class="scale" role="group" aria-label="Batch size">
-        <button type="button" data-scale="1" aria-pressed="true">1 kg</button>
-        <button type="button" data-scale="1.5" aria-pressed="false">1.5 kg</button>
-        <button type="button" data-scale="2" aria-pressed="false">2 kg</button>
-      </div>
-      <button type="button" id="avail-toggle" aria-pressed="false">Show availability</button>
-    </div>
+    <a class="bar-btn" href="pantry.html">Pantry</a>
+    <button type="button" id="avail-toggle" class="bar-btn" aria-pressed="false">Show availability</button>
   </div>
 </div>
 
@@ -466,7 +88,7 @@
     <p class="heat">No chilli. The green pepper is doing the scotch bonnet's other job — the fruity, vegetal note — without any of the heat.</p>
   </div>
   <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
-    <div data-cat="base" data-pantry-id="plain-full-fat-yoghurt"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
     <div data-cat="spice" data-pantry-id="ground-allspice"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
     <div data-cat="spice" data-pantry-id="thyme"><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Dried thyme</span> <span class="sub">Or a tablespoon of fresh, leaves stripped</span></p></div>
     <div data-cat="spice" data-pantry-id="ground-nutmeg"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Ground nutmeg</span></p></div>
@@ -493,7 +115,7 @@
     <p class="heat">No chilli. Half a teaspoon of black pepper is the only bite in it.</p>
   </div>
   <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
-    <div data-cat="base" data-pantry-id="plain-full-fat-yoghurt"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
     <div data-cat="wet" data-pantry-id="olive-oil"><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Olive oil</span></p></div>
     <div data-cat="fresh" data-pantry-id="lemons"><span class="q" data-q="1" data-u="lemons" data-u1="lemon" data-r="whole">1 lemon</span><p class="n"><span class="core">Lemon</span><span class="detail">, zest and juice, both</span></p></div>
     <div data-cat="spice" data-pantry-id="oregano"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dried oregano</span></p></div>
@@ -514,7 +136,7 @@
     <p class="heat">No chilli. Allspice and cinnamon are warm-aromatic rather than pungent, so nothing here registers as hot.</p>
   </div>
   <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
-    <div data-cat="base" data-pantry-id="plain-full-fat-yoghurt"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
     <div data-cat="wet" data-pantry-id="sunflower-oil olive-oil"><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Sunflower or olive oil</span></p></div>
     <div data-cat="spice" data-pantry-id="ground-allspice"><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
     <div data-cat="spice" data-pantry-id="ground-cumin"><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Ground cumin</span></p></div>
@@ -538,7 +160,7 @@
     <p class="heat">The mildest here. A quarter-teaspoon of pepper, and Dijon's sharpness cooks away to nothing.</p>
   </div>
   <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
-    <div data-cat="base" data-pantry-id="plain-full-fat-yoghurt"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
     <div data-cat="wet" data-pantry-id="dijon-mustard"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Dijon mustard</span></p></div>
     <div data-cat="wet" data-pantry-id="lemons"><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Lemon juice</span></p></div>
     <div data-cat="wet" data-pantry-id="honey"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Honey</span></p></div>
@@ -561,7 +183,7 @@
     <p class="heat">Warm, not hot — Jamaican curry is turmeric- and allspice-led rather than chilli-led. Check your curry powder's label all the same.</p>
   </div>
   <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
-    <div data-cat="base" data-pantry-id="plain-full-fat-yoghurt"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
     <div data-cat="spice" data-pantry-id="mild-curry-powder"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Mild curry powder</span> <span class="sub">Rajah Mild &amp; Aromatic, Robertsons mild, or a Cape Malay blend</span></p></div>
     <div data-cat="spice" data-pantry-id="turmeric-borrie"><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Turmeric</span> <span class="sub">Sold as borrie</span></p></div>
     <div data-cat="spice" data-pantry-id="ground-allspice"><span class="q" data-q="2" data-u="tsp" data-r="spoon">2 tsp</span><p class="n"><span class="core">Ground allspice</span></p></div>
@@ -587,7 +209,7 @@
     <p class="heat">No chilli. The deep red-orange comes from paprika and turmeric, not heat.</p>
   </div>
   <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
-    <div data-cat="base" data-pantry-id="plain-full-fat-yoghurt"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
     <div data-cat="spice" data-pantry-id="sweet-paprika"><span class="q" data-q="1.5" data-u="tsp" data-r="spoon">1½ tsp</span><p class="n"><span class="core">Sweet paprika</span></p></div>
     <div data-cat="spice" data-pantry-id="turmeric-borrie"><span class="q" data-q="0.5" data-u="tsp" data-r="spoon">½ tsp</span><p class="n"><span class="core">Turmeric</span></p></div>
     <div data-cat="wet" data-pantry-id="tomato-paste"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Tomato paste</span></p></div>
@@ -616,7 +238,7 @@
     <p class="heat">No chilli. Real bulgogi gets its red tinge and kick from gochujang or gochugaru — both left out, so this leans harder on the sweet-savoury soy side instead.</p>
   </div>
   <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
-    <div data-cat="base" data-pantry-id="plain-full-fat-yoghurt"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
     <div data-cat="wet" data-pantry-id="soy-sauce"><span class="q" data-q="3" data-u="tbsp" data-r="spoon">3 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
     <div data-cat="wet" data-pantry-id="sesame-oil"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Sesame oil</span></p></div>
     <div data-cat="spice" data-pantry-id="brown-sugar"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Brown sugar</span></p></div>
@@ -640,7 +262,7 @@
     <p class="heat">No chilli, and the mildest of the four Asian marinades — miso brings savoury depth without any heat at all.</p>
   </div>
   <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
-    <div data-cat="base" data-pantry-id="plain-full-fat-yoghurt"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
     <div data-cat="wet" data-pantry-id="white-miso-shiro"><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">White miso</span><span class="detail"> (shiro)</span></p></div>
     <div data-cat="wet" data-pantry-id="mirin"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Mirin</span></p></div>
     <div data-cat="wet" data-pantry-id="soy-sauce"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
@@ -662,7 +284,7 @@
     <p class="heat">No chilli in standard hoisin, though it's worth reading the label — five-spice itself is warm rather than hot.</p>
   </div>
   <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
-    <div data-cat="base" data-pantry-id="plain-full-fat-yoghurt"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
     <div data-cat="wet" data-pantry-id="hoisin-sauce"><span class="q" data-q="2" data-u="tbsp" data-r="spoon">2 tbsp</span><p class="n"><span class="core">Hoisin sauce</span></p></div>
     <div data-cat="wet" data-pantry-id="soy-sauce"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span></p></div>
     <div data-cat="spice" data-pantry-id="chinese-five-spice-powder"><span class="q" data-q="1" data-u="tsp" data-r="spoon">1 tsp</span><p class="n"><span class="core">Chinese five-spice powder</span></p></div>
@@ -684,7 +306,7 @@
     <p class="heat">No chilli, and built without fish sauce — see the substitution note below.</p>
   </div>
   <div class="ing"><p class="cat-head" data-cat-head="base">Base</p><p class="cat-head" data-cat-head="spice">Spices &amp; dry seasoning</p><p class="cat-head" data-cat-head="wet">Wet &amp; sauces</p><p class="cat-head" data-cat-head="fresh">Aromatics &amp; fresh</p>
-    <div data-cat="base" data-pantry-id="plain-full-fat-yoghurt"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
+    <div data-cat="base"><span class="q" data-q="250" data-u="g" data-r="mass">250 g</span><p class="n"><span class="core">Plain full-fat yoghurt</span></p></div>
     <div data-cat="fresh" data-pantry-id="lemongrass"><span class="q" data-q="1" data-u="stalks" data-u1="stalk" data-r="whole">1 stalk</span><p class="n"><span class="core">Lemongrass</span><span class="detail">, very finely minced</span> <span class="sub">Or 1 tbsp lemongrass paste</span></p></div>
     <div data-cat="fresh" data-pantry-id="shallots"><span class="q" data-q="2" data-u="" data-r="whole">2</span><p class="n"><span class="core">Shallots</span><span class="detail">, grated</span> <span class="sub">Or ½ small onion</span></p></div>
     <div data-cat="wet" data-pantry-id="soy-sauce"><span class="q" data-q="1" data-u="tbsp" data-r="spoon">1 tbsp</span><p class="n"><span class="core">Soy sauce</span> <span class="sub">Replaces fish sauce — see note below</span></p></div>
@@ -701,126 +323,9 @@
   </div>
 </section>
 
-<section id="pantry">
-  <h2>Everything the ten need</h2>
-  <p class="lede">The full list buys all ten. Pick a single marinade to strip it back to one shopping trip. Spices in refill bags or from a bulk bin run roughly a third of the branded-jar price.</p>
-
-  <div class="filter" role="group" aria-label="Show pantry items for">
-    <button type="button" data-only="all" aria-pressed="true">All ten</button>
-    <button type="button" data-only="jerk" aria-pressed="false" style="--c:var(--jerk)">Mild jerk</button>
-    <button type="button" data-only="greek" aria-pressed="false" style="--c:var(--greek)">Greek lemon-oregano</button>
-    <button type="button" data-only="shawarma" aria-pressed="false" style="--c:var(--shawarma)">Shawarma</button>
-    <button type="button" data-only="honey" aria-pressed="false" style="--c:var(--honey)">Herb, mustard &amp; honey</button>
-    <button type="button" data-only="curry" aria-pressed="false" style="--c:var(--curry)">Jamaican curry</button>
-    <button type="button" data-only="achiote" aria-pressed="false" style="--c:var(--achiote)">Achiote pibil</button>
-    <button type="button" data-only="korean" aria-pressed="false" style="--c:var(--korean)">Korean bulgogi</button>
-    <button type="button" data-only="miso" aria-pressed="false" style="--c:var(--miso)">Miso-ginger</button>
-    <button type="button" data-only="hoisin" aria-pressed="false" style="--c:var(--hoisin)">Five-spice hoisin</button>
-    <button type="button" data-only="viet" aria-pressed="false" style="--c:var(--viet)">Lemongrass-shallot</button>
-  </div>
-  <p class="pantry-status" id="pantry-status" role="status">Showing all items, enough to cook every marinade once.</p>
-
-  <div class="pantry">
-    <div data-group>
-      <h3>Dry spices</h3>
-      <ul>
-        <li data-use="greek achiote" data-id="sweet-paprika"><span class="pantry-item"><span class="pantry-name">Sweet paprika</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="shawarma achiote" data-id="ground-cumin"><span class="pantry-item"><span class="pantry-name">Ground cumin</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="shawarma" data-id="ground-coriander"><span class="pantry-item"><span class="pantry-name">Ground coriander</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="curry achiote" data-id="turmeric-borrie"><span class="pantry-item"><span class="pantry-name">Turmeric (borrie)</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk shawarma curry" data-id="ground-allspice"><span class="pantry-item"><span class="pantry-name">Ground allspice</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk shawarma achiote" data-id="ground-cinnamon"><span class="pantry-item"><span class="pantry-name">Ground cinnamon</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk" data-id="ground-nutmeg"><span class="pantry-item"><span class="pantry-name">Ground nutmeg</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="achiote" data-id="ground-cloves"><span class="pantry-item"><span class="pantry-name">Ground cloves</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="curry" data-id="mild-curry-powder"><span class="pantry-item"><span class="pantry-name">Mild curry powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="honey" data-id="garlic-powder"><span class="pantry-item"><span class="pantry-name">Garlic powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="honey" data-id="onion-powder"><span class="pantry-item"><span class="pantry-name">Onion powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="hoisin" data-id="chinese-five-spice-powder"><span class="pantry-item"><span class="pantry-name">Chinese five-spice powder</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk greek shawarma honey curry achiote korean miso hoisin viet" data-id="black-pepper"><span class="pantry-item"><span class="pantry-name">Black pepper</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk greek shawarma honey curry achiote" data-id="salt"><span class="pantry-item"><span class="pantry-name">Salt</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-      </ul>
-    </div>
-
-    <div data-group>
-      <h3>Dried herbs</h3>
-      <ul>
-        <li data-use="greek achiote" data-id="oregano"><span class="pantry-item"><span class="pantry-name">Oregano</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk honey curry" data-id="thyme"><span class="pantry-item"><span class="pantry-name">Thyme</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="honey" data-id="parsley"><span class="pantry-item"><span class="pantry-name">Parsley</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-      </ul>
-    </div>
-
-    <div data-group>
-      <h3>Fresh</h3>
-      <ul>
-        <li data-use="jerk greek shawarma curry achiote korean miso hoisin viet" data-id="garlic"><span class="pantry-item"><span class="pantry-name">Garlic</span> <span data-all="2 bulbs" data-jerk="5 cloves" data-greek="5 cloves" data-shawarma="5 cloves" data-curry="5 cloves" data-achiote="6 cloves" data-korean="5 cloves" data-miso="3 cloves" data-hoisin="4 cloves" data-viet="3 cloves">2 bulbs</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk curry korean miso hoisin" data-id="fresh-ginger"><span class="pantry-item"><span class="pantry-name">Fresh ginger</span> <span>1 knob</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk korean" data-id="spring-onions"><span class="pantry-item"><span class="pantry-name">Spring onions</span> <span data-all="1 bunch" data-jerk="4" data-korean="2">1 bunch</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk" data-id="green-pepper"><span class="pantry-item"><span class="pantry-name">Green pepper</span> <span>1</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="shawarma curry" data-id="onions"><span class="pantry-item"><span class="pantry-name">Onions</span> <span data-all="2" data-shawarma="1" data-curry="1">2</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="greek shawarma honey" data-id="lemons"><span class="pantry-item"><span class="pantry-name">Lemons</span> <span data-all="3" data-greek="1" data-shawarma="1" data-honey="1">3</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk curry achiote" data-id="limes"><span class="pantry-item"><span class="pantry-name">Limes</span> <span data-all="4" data-jerk="1" data-curry="1" data-achiote="2">4</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="achiote" data-id="orange"><span class="pantry-item"><span class="pantry-name">Orange</span> <span>1</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="viet" data-id="lemongrass"><span class="pantry-item"><span class="pantry-name">Lemongrass</span> <span>1 stalk</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="viet" data-id="shallots"><span class="pantry-item"><span class="pantry-name">Shallots</span> <span>2, or ½ small onion</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="korean" data-id="pear-or-apple"><span class="pantry-item"><span class="pantry-name">Pear or apple</span> <span>¼</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-      </ul>
-    </div>
-
-    <div data-group>
-      <h3>Chilled</h3>
-      <ul>
-        <li data-use="jerk greek shawarma honey curry achiote korean miso hoisin viet" data-id="plain-full-fat-yoghurt"><span class="pantry-item"><span class="pantry-name">Plain full-fat yoghurt</span> <span class="q" data-q="250" data-u="g" data-r="mass">250 g</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk greek shawarma honey curry achiote korean miso hoisin viet" data-id="chicken-thighs-deboned"><span class="pantry-item"><span class="pantry-name">Chicken thighs, deboned</span> <span class="q" data-q="1" data-u="kg" data-u1="kg" data-r="spoon">1 kg</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-      </ul>
-    </div>
-
-    <div data-group>
-      <h3>Cupboard</h3>
-      <ul>
-        <li data-use="shawarma curry achiote viet" data-id="sunflower-oil"><span class="pantry-item"><span class="pantry-name">Sunflower oil</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="greek shawarma" data-id="olive-oil"><span class="pantry-item"><span class="pantry-name">Olive oil</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="honey" data-id="dijon-mustard"><span class="pantry-item"><span class="pantry-name">Dijon mustard</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="honey" data-id="honey"><span class="pantry-item"><span class="pantry-name">Honey</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk korean miso hoisin viet" data-id="soy-sauce"><span class="pantry-item"><span class="pantry-name">Soy sauce</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="jerk korean viet" data-id="brown-sugar"><span class="pantry-item"><span class="pantry-name">Brown sugar</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="achiote" data-id="tomato-paste"><span class="pantry-item"><span class="pantry-name">Tomato paste</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="viet" data-id="rice-vinegar"><span class="pantry-item"><span class="pantry-name">Rice vinegar</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-      </ul>
-    </div>
-
-    <div data-group>
-      <h3>Asian condiments</h3>
-      <ul>
-        <li data-use="korean miso hoisin" data-id="sesame-oil"><span class="pantry-item"><span class="pantry-name">Sesame oil</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="miso" data-id="white-miso-shiro"><span class="pantry-item"><span class="pantry-name">White miso (shiro)</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="miso" data-id="mirin"><span class="pantry-item"><span class="pantry-name">Mirin</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="hoisin" data-id="hoisin-sauce"><span class="pantry-item"><span class="pantry-name">Hoisin sauce</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-        <li data-use="korean" data-id="toasted-sesame-seeds"><span class="pantry-item"><span class="pantry-name">Toasted sesame seeds</span></span><button type="button" class="stock" aria-pressed="false">Out of stock</button></li>
-      </ul>
-    </div>
-
-    <div class="avoid">
-      <h3>Leave on the shelf</h3>
-      <ul>
-        <li>Hot or extra-hot curry powder</li>
-        <li>Durban masala</li>
-        <li>Hot or hot-smoked paprika</li>
-        <li>Chilli powder and cayenne</li>
-        <li>Ready-made jerk paste</li>
-        <li>Harissa and berbere</li>
-        <li>Achiote paste</li>
-        <li>Anything naming scotch bonnet, chipotle or ancho</li>
-        <li>Gochujang and gochugaru</li>
-        <li>Sriracha, sambal and chilli oil</li>
-      </ul>
-      <p style="margin-top:1rem;font-size:.94rem">Read the ingredients panel even on the mild versions. Plenty of local blends list chilli or cayenne well up the list, and mild on a label does not always mean mild at your table.</p>
-    </div>
-  </div>
-</section>
 
 <footer>
-  <p>A family kitchen reference. Amounts assume 250&nbsp;g yoghurt per kilo of chicken; the buttons at the top rescale every list on the page at once.</p>
+  <p>A family kitchen reference. Amounts assume 250&nbsp;g yoghurt per kilo of chicken — a standard 1&nbsp;kg batch throughout. Full shopping list, with availability tracking, is on the <a href="pantry.html">Pantry page</a>.</p>
   <p style="margin-top:1rem"><a class="totop" href="#">Back to the top</a></p>
 </footer>
 
@@ -828,106 +333,6 @@
 
 <script>
 (function(){
-  var FRACTIONS = {0:'', 0.25:'\u00bc', 0.5:'\u00bd', 0.75:'\u00be'};
-
-  function render(value, rule){
-    if(rule === 'mass'){
-      return String(Math.round(value / 5) * 5);
-    }
-    var step = (rule === 'whole') ? 1 : (rule === 'half' ? 0.5 : 0.25);
-    var rounded = Math.round(value / step) * step;
-    if(rounded < step) rounded = step;
-    var whole = Math.floor(rounded + 1e-9);
-    var frac = Math.round((rounded - whole) * 100) / 100;
-    var glyph = FRACTIONS[frac] || '';
-    if(whole === 0) return glyph || '0';
-    return whole + glyph;
-  }
-
-  var cells = Array.prototype.slice.call(document.querySelectorAll('.q'));
-  var buttons = Array.prototype.slice.call(document.querySelectorAll('[data-scale]'));
-
-  function apply(scale){
-    cells.forEach(function(cell){
-      var base = parseFloat(cell.getAttribute('data-q'));
-      if(isNaN(base)) return;
-      var rule = cell.getAttribute('data-r') || 'spoon';
-      var unit = cell.getAttribute('data-u') || '';
-      var singular = cell.getAttribute('data-u1');
-      var scaled = base * scale;
-      var text = render(scaled, rule);
-      var numeric = parseFloat(text) || (text.indexOf('\u00bd') === 0 ? 0.5 : 1);
-      var label = (singular && numeric <= 1) ? singular : unit;
-      cell.textContent = label ? text + ' ' + label : text;
-    });
-  }
-
-  buttons.forEach(function(button){
-    button.addEventListener('click', function(){
-      buttons.forEach(function(other){
-        other.setAttribute('aria-pressed', String(other === button));
-      });
-      apply(parseFloat(button.getAttribute('data-scale')));
-    });
-  });
-
-  /* ---- pantry filter ---- */
-  var NAMES = {
-    jerk:'Mild jerk',
-    greek:'Greek lemon-oregano',
-    shawarma:'Shawarma warm spice',
-    honey:'Herb, mustard and honey',
-    curry:'Jamaican curry',
-    achiote:'Achiote pibil',
-    korean:'Korean bulgogi-style',
-    miso:'Japanese miso-ginger',
-    hoisin:'Chinese five-spice hoisin',
-    viet:'Vietnamese lemongrass-shallot'
-  };
-
-  var chips = Array.prototype.slice.call(document.querySelectorAll('[data-only]'));
-  var items = Array.prototype.slice.call(document.querySelectorAll('.pantry li[data-use]'));
-  var groups = Array.prototype.slice.call(document.querySelectorAll('.pantry [data-group]'));
-  var status = document.getElementById('pantry-status');
-
-  function filter(key){
-    var shown = 0;
-
-    items.forEach(function(item){
-      var uses = (item.getAttribute('data-use') || '').split(' ');
-      var visible = (key === 'all') || uses.indexOf(key) > -1;
-      item.hidden = !visible;
-      if(visible) shown++;
-
-      var amount = item.querySelector('span[data-all]');
-      if(amount){
-        var override = amount.getAttribute('data-' + key);
-        amount.textContent = (key !== 'all' && override) ? override : amount.getAttribute('data-all');
-      }
-    });
-
-    groups.forEach(function(group){
-      var any = Array.prototype.slice.call(group.querySelectorAll('li[data-use]'))
-        .some(function(item){ return !item.hidden; });
-      group.hidden = !any;
-    });
-
-    status.textContent = (key === 'all')
-      ? 'Showing all ' + shown + ' items, enough to cook every marinade once.'
-      : 'Showing the ' + shown + ' items ' + NAMES[key] + ' needs.';
-  }
-
-  chips.forEach(function(chip){
-    chip.addEventListener('click', function(){
-      chips.forEach(function(other){
-        other.setAttribute('aria-pressed', String(other === chip));
-      });
-      filter(chip.getAttribute('data-only'));
-    });
-  });
-
-  filter('all');
-
   /* ---- per-recipe "ingredients only" toggle ---- */
   var recipeIngs = Array.prototype.slice.call(document.querySelectorAll('.recipe .ing'));
   recipeIngs.forEach(function(ing){
@@ -952,48 +357,19 @@
     });
   });
 
-  /* ---- pantry stock toggle (Available / Out of stock), persisted locally ---- */
+  /* ---- ingredient stock marker (ingredients-only view) ----
+     Reads the same pantryStock data the Pantry page writes, so marking
+     something available/out of stock there is reflected here. */
   var STOCK_KEY = 'pantryStock:v1';
   var stockMap = {};
   try{ stockMap = JSON.parse(localStorage.getItem(STOCK_KEY) || '{}'); }catch(e){ stockMap = {}; }
 
-  function saveStock(){
-    try{ localStorage.setItem(STOCK_KEY, JSON.stringify(stockMap)); }catch(e){}
-  }
-
-  function setStockState(li, btn, state){
-    li.setAttribute('data-state', state);
-    li.classList.toggle('have', state === 'have');
-    btn.setAttribute('data-state', state);
-    btn.setAttribute('aria-pressed', String(state === 'have'));
-    btn.textContent = state === 'have' ? 'Available' : 'Out of stock';
-  }
-
-  var stockButtons = Array.prototype.slice.call(document.querySelectorAll('.pantry .stock'));
-  stockButtons.forEach(function(btn){
-    var li = btn.closest('li');
-    var id = li.getAttribute('data-id');
-    setStockState(li, btn, stockMap[id] === 'have' ? 'have' : 'need');
-    btn.addEventListener('click', function(){
-      var next = li.getAttribute('data-state') === 'have' ? 'need' : 'have';
-      setStockState(li, btn, next);
-      stockMap[id] = next;
-      saveStock();
-      refreshIngredientStock();
-    });
-  });
-
-  /* ---- ingredient stock marker (ingredients-only view) ---- */
   var pantryRows = Array.prototype.slice.call(document.querySelectorAll('.recipe .ing div[data-pantry-id]'));
-
-  function refreshIngredientStock(){
-    pantryRows.forEach(function(row){
-      var ids = row.getAttribute('data-pantry-id').split(' ');
-      var have = ids.some(function(id){ return stockMap[id] === 'have'; });
-      row.classList.toggle('pantry-have', have);
-    });
-  }
-  refreshIngredientStock();
+  pantryRows.forEach(function(row){
+    var ids = row.getAttribute('data-pantry-id').split(' ');
+    var have = ids.some(function(id){ return stockMap[id] === 'have'; });
+    row.classList.toggle('pantry-have', have);
+  });
 
   var AVAIL_KEY = 'showAvailability:v1';
   var availToggle = document.getElementById('avail-toggle');
