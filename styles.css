@@ -138,9 +138,6 @@ body.show-availability .avail-pct{
   letter-spacing:.02em;
   vertical-align:.15em;
 }
-.avail-pct.low{background:#bfe3b8;color:#1f3d22}
-.avail-pct.mid{background:#5fa85a;color:#fff}
-.avail-pct.high{background:#1f4d28;color:#fff}
 
 /* ---------- generic sections ---------- */
 section{padding:clamp(2.8rem,8vw,4.5rem) 0 0}

@@ -374,6 +374,26 @@
   /* ---- per-recipe availability percentage badge (nav index) ----
      Excludes the yoghurt row (and there's no chicken row to begin with) —
      both are assumed always on hand, so only tracked pantry ingredients count. */
+  var PCT_STOPS = [
+    [0,   [122, 31, 31]],   // dark red
+    [50,  [209, 53, 43]],   // red
+    [70,  [224, 138, 43]],  // orange
+    [80,  [191, 227, 184]], // light green
+    [90,  [95, 168, 90]],   // green
+    [100, [31, 77, 40]]     // dark green
+  ];
+  function pctColor(pct){
+    pct = Math.max(0, Math.min(100, pct));
+    for(var i = 0; i < PCT_STOPS.length - 1; i++){
+      var a = PCT_STOPS[i], b = PCT_STOPS[i + 1];
+      if(pct >= a[0] && pct <= b[0]){
+        var t = (b[0] === a[0]) ? 0 : (pct - a[0]) / (b[0] - a[0]);
+        return a[1].map(function(v, idx){ return Math.round(v + (b[1][idx] - v) * t); });
+      }
+    }
+    return PCT_STOPS[PCT_STOPS.length - 1][1];
+  }
+
   var recipeSections = Array.prototype.slice.call(document.querySelectorAll('.recipe'));
   recipeSections.forEach(function(sec){
     var badge = document.querySelector('.avail-pct[data-recipe="' + sec.id + '"]');
@@ -385,9 +405,11 @@
       return ids.some(function(id){ return stockMap[id] === 'have'; });
     }).length;
     var pct = Math.round((haveCount / rows.length) * 100);
+    var rgb = pctColor(pct);
+    var luminance = 0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2];
     badge.textContent = pct + '%';
-    badge.classList.remove('low','mid','high');
-    badge.classList.add(pct >= 95 ? 'high' : (pct < 80 ? 'low' : 'mid'));
+    badge.style.background = 'rgb(' + rgb.join(',') + ')';
+    badge.style.color = luminance > 150 ? '#1f2a1f' : '#fff';
     badge.hidden = false;
   });
 
